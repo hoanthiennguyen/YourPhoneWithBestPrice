@@ -16,7 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import listener.MyContextServletListener;
+import listener.DeployListener;
+import util.StringUtil;
 
 /**
  *
@@ -39,15 +40,16 @@ public class CrawlController extends HttpServlet {
         PhoneDAO dao = new PhoneDAO();
         String url = "error.jsp";
         try {
-            String webpage = Hoangha.WEBSITE + Hoangha.SUBPAGE2;
-            List<Phone> list = Crawler.crawlPage(webpage, MyContextServletListener.HOANGHA_XSL_PATH);
-            
-            dao.insertPhoneList(list, Hoangha.WEBSITE, Hoangha.SUBPAGE2);
-            String info = "Crawl from " + webpage + "and save to DB: " + list.size() + "item(s)";
-            request.setAttribute("INFO", info);
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
             System.out.println("Page:  " + website + subpage);
+            String fullURL = website + subpage;
+            String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) +".xsl";
+            List<Phone> list = Crawler.crawlPage(fullURL, xslPath);
+            dao.insertPhoneList(list, website, subpage);
+            String info = "Crawl from " + fullURL + " and save to DB: " + list.size() + " item(s)";
+            request.setAttribute("INFO", info);
+            
             url = "admin.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());

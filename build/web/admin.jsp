@@ -4,6 +4,7 @@
     Author     : thien
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,16 +17,15 @@
         <p>${requestScope.INFO}</p>
         <form action="CrawlController" method="POST">
             Website <select name="website">
-                <option value="https://hoanghamobile.com/dien-thoai-di-dong-c14.html">
-                    https://hoanghamobile.com/dien-thoai-di-dong-c14.html
-                </option>
-                <option value="https://bachlongmobile.com/">
-                    https://bachlongmobile.com/
-                </option>
+                <c:forEach items="${requestScope.WEBSITE}" var="dto">
+                    <option value="${dto.website}">${dto.website}</option>
+                </c:forEach>
+                
             </select><br/>
             Subpage <select name="subpage">
-                <option value="dien-thoai-xiaomi.html">dien-thoai-xiaomi.html</option>
-                <option value="dt-nokia.html">dt-nokia.html</option>
+                <c:forEach items="${requestScope.SUBPAGE}" var="dto">
+                    <option value="${dto.subpage}">${dto.subpage}</option>
+                </c:forEach>
             </select><br/>
             <input type="submit" value="Crawl">
         </form>

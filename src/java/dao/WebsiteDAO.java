@@ -5,10 +5,33 @@
  */
 package dao;
 
+import connection.DBConnection;
+import dto.Website;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author thien
  */
 public class WebsiteDAO {
-    
+    public List<Website> getListWebsite() throws SQLException, ClassNotFoundException{
+        Connection cnn = DBConnection.getConnection();
+        String sql = "SELECT website FROM website";
+        PreparedStatement preStm = cnn.prepareStatement(sql);
+        ResultSet rs = preStm.executeQuery();
+        List<Website> result = new ArrayList<>();
+        while(rs.next()){
+            String website = rs.getString("website");
+            result.add(new Website(website));
+        }
+        if(rs != null) rs.close();
+        if(preStm != null) preStm.close();
+        if(cnn != null) cnn.close();
+        return result;
+    }
 }

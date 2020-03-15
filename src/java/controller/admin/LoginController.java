@@ -5,7 +5,9 @@
  */
 package controller.admin;
 
+import dao.SubpageDAO;
 import dao.UserDAO;
+import dao.WebsiteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,9 +36,14 @@ public class LoginController extends HttpServlet {
         String url = "error.jsp";
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        UserDAO dao = new UserDAO();
+        UserDAO userDAO = new UserDAO();
+        WebsiteDAO websiteDAO = new WebsiteDAO();
+        SubpageDAO subpageDAO = new SubpageDAO();
         try {
-            if (dao.login(username, password)) {
+            if (userDAO.login(username, password)) {
+                request.setAttribute("WEBSITE", websiteDAO.getListWebsite());
+                request.setAttribute("SUBPAGE", subpageDAO.getListSubpage());
+                request.getSession().setAttribute("USERNAME", username);
                 url = "admin.jsp";
             }
             else{

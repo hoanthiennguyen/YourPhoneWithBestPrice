@@ -64,7 +64,7 @@ public class PhoneDAO {
     
     private int getSubpageId(String website, String subpage) throws SQLException {
         int result = 0;
-        String sql = "SELECT id FROM websitesubpage WHERE website = ? AND subpage = ?";
+        String sql = "SELECT id FROM subpage WHERE website = ? AND subpage = ?";
         PreparedStatement localPreStm = cnn.prepareStatement(sql);
         localPreStm.setString(1, website);
         localPreStm.setString(2, subpage);

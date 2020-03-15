@@ -5,6 +5,8 @@
  */
 package listener;
 
+import dao.SubpageDAO;
+import dao.WebsiteDAO;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -13,12 +15,13 @@ import javax.servlet.ServletContextListener;
  *
  * @author thien
  */
-public class MyContextServletListener implements ServletContextListener {
+public class DeployListener implements ServletContextListener {
 
     private final static String HOANGHA = "WEB-INF/hoangha.xsl";
     private final static String BACHLONG = "WEB-INF/bachlong.xsl";
     public static String HOANGHA_XSL_PATH;
     public static String BACHLONG_XSL_PATH;
+    public static String REAL_PATH;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -26,7 +29,8 @@ public class MyContextServletListener implements ServletContextListener {
 
         HOANGHA_XSL_PATH = sce.getServletContext().getRealPath("/") + HOANGHA;
         BACHLONG_XSL_PATH = sce.getServletContext().getRealPath("/") + BACHLONG;
-
+        REAL_PATH = sce.getServletContext().getRealPath("/") + "WEB-INF/";
+        
     }
 
     @Override
