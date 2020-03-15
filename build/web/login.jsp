@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Login Page</h1>
-        <form action="LoginStaxServlet" method="POST">
+        <form action="LoginController" method="POST">
             Username <input name="username" type="text"><br>
             Password <input name="password" type="text"><br>
             <input type="submit" value="Login">
