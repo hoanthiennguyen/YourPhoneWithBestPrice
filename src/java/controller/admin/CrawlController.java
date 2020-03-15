@@ -45,6 +45,9 @@ public class CrawlController extends HttpServlet {
             dao.insertPhoneList(list, Hoangha.WEBSITE, Hoangha.SUBPAGE2);
             String info = "Crawl from " + webpage + "and save to DB: " + list.size() + "item(s)";
             request.setAttribute("INFO", info);
+            String website = request.getParameter("website");
+            String subpage = request.getParameter("subpage");
+            System.out.println("Page:  " + website + subpage);
             url = "admin.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());
