@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,9 +42,10 @@ public class LoginController extends HttpServlet {
         SubpageDAO subpageDAO = new SubpageDAO();
         try {
             if (userDAO.login(username, password)) {
-                request.setAttribute("WEBSITE", websiteDAO.getListWebsite());
-                request.setAttribute("SUBPAGE", subpageDAO.getListSubpage());
-                request.getSession().setAttribute("USERNAME", username);
+                HttpSession session = request.getSession();
+                session.setAttribute("WEBSITE", websiteDAO.getListWebsite());
+                session.setAttribute("SUBPAGE", subpageDAO.getListSubpage());
+                session.setAttribute("USERNAME", username);
                 url = "admin.jsp";
             }
             else{

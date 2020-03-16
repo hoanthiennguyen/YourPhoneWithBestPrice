@@ -17,13 +17,13 @@
         <p>${requestScope.INFO}</p>
         <form action="CrawlController" method="POST">
             Website <select name="website">
-                <c:forEach items="${requestScope.WEBSITE}" var="dto">
+                <c:forEach items="${sessionScope.WEBSITE}" var="dto">
                     <option value="${dto.website}">${dto.website}</option>
                 </c:forEach>
                 
             </select><br/>
             Subpage <select name="subpage">
-                <c:forEach items="${requestScope.SUBPAGE}" var="dto">
+                <c:forEach items="${sessionScope.SUBPAGE}" var="dto">
                     <option value="${dto.subpage}">${dto.subpage}</option>
                 </c:forEach>
             </select><br/>

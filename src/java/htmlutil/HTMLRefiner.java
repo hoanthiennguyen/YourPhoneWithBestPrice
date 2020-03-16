@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import util.EscapseHTMLUtils;
 
 /**
  *
@@ -51,13 +52,13 @@ public class HTMLRefiner {
         String result = src;
         String expression = "<script.*?</script>";
         result = result.replaceAll(expression, "");
-        
+
         expression = "<!--.*?-->";
         result = result.replaceAll(expression, "");
-        
+
         expression = "&nbsp;?";
         result = result.replaceAll(expression, "");
-        
+
         expression = "<br>";
         result = result.replaceAll(expression, "");
         return result;
@@ -66,9 +67,9 @@ public class HTMLRefiner {
 
     public static String getXMLString(String urlString) throws IOException {
         URLConnection connection = setupConnection(urlString);
-        String html = getExpectedString(connection.getInputStream(), "products-grid", "</ul>");
-        
-        return refineHtml(html);
+        String html = getExpectedString(connection.getInputStream());
+        String unicodeFixed = EscapseHTMLUtils.encodeHtml(html);
+        return refineHtml(unicodeFixed);
 
     }
 
@@ -76,7 +77,7 @@ public class HTMLRefiner {
 
         URL url = new URL(urlString);
         URLConnection connection = url.openConnection();
-        connection.setReadTimeout(8 * 1000);
+        connection.setReadTimeout(20 * 1000);
         connection.setConnectTimeout(8 * 1000);
         connection.addRequestProperty("User-Agent",
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36");
@@ -85,21 +86,12 @@ public class HTMLRefiner {
 
     }
 
-    private static String getExpectedString(InputStream inputStream, String from, String to) {
+    private static String getExpectedString(InputStream inputStream) {
         StringBuilder stringBuilder = new StringBuilder();
         String line;
-//        boolean isExpectedPart = false;
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             while ((line = bufferedReader.readLine()) != null) {
-//                if (line.contains(from)) {
-//                    isExpectedPart = true;
-//                } else if (isExpectedPart && line.contains(to)) {
-//                    break;
-//                }
-//                if (isExpectedPart) {
-//                    stringBuilder.append(line);
-//                }
-                  stringBuilder.append(line);
+                stringBuilder.append(line);
             }
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -137,11 +129,11 @@ public class HTMLRefiner {
             e.printStackTrace();
         }
     }
-   
+
     public static void main(String[] args) {
         try {
-            String src = getXMLString("https://hoanghamobile.com/dien-thoai-di-dong-c14.html");
-            writeToFile(src, "hoangha.xml");
+            String src = getXMLString("https://hoanghamobile.com/dien-thoai-di-dong-c14.html/?sort=0&p=2");
+            writeToFile(src, "hoangha2.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }
