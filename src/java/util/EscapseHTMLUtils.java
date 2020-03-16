@@ -18,9 +18,6 @@ public class EscapseHTMLUtils {
 
     static {
         // https://hocwebchuan.com/reference/tag/symbols.php
-        htmlEncodeChars.put("&#38;", "&");
-        htmlEncodeChars.put("&lt;", "<");
-        htmlEncodeChars.put("&gt;", ">");
         htmlEncodeChars.put("&euro;", "€");
         htmlEncodeChars.put("&nbsp;", " ");
         htmlEncodeChars.put("&#193;", "Á");
