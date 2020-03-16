@@ -42,8 +42,8 @@ public class PhoneDAO {
         }
     }
 
-    public void insertPhoneList(List<Phone> list, String website, String subpage) throws Exception {
-
+    public int insertPhoneList(List<Phone> list, String website, String subpage) throws Exception {
+        int result = 0;
         cnn = DBConnection.getConnection();
 
         int subpageid = getSubpageId(website, subpage);
@@ -66,10 +66,12 @@ public class PhoneDAO {
                     preStm.setDate(5, new Date(System.currentTimeMillis()));
                     preStm.execute();
                 }
+                result++;
             }
 
         }
         closeConnnection();
+        return result;
     }
 
     private int getSubpageId(String website, String subpage) throws SQLException {

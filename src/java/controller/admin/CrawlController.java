@@ -5,8 +5,6 @@
  */
 package controller.admin;
 
-import constant.Bachlong;
-import constant.Hoangha;
 import crawler.Crawler;
 import dao.PhoneDAO;
 import dto.Phone;
@@ -46,8 +44,8 @@ public class CrawlController extends HttpServlet {
             String fullURL = website + subpage;
             String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) +".xsl";
             List<Phone> list = Crawler.crawlPage(fullURL, xslPath);
-            dao.insertPhoneList(list, website, subpage);
-            String info = "Crawl from " + fullURL + " and save to DB: " + list.size() + " item(s)";
+            int numberOfItem = dao.insertPhoneList(list, website, subpage);
+            String info = "Crawl from " + fullURL + " and save to DB: " + numberOfItem + " item(s)";
             request.setAttribute("INFO", info);
             
             url = "admin.jsp";
