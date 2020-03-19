@@ -18,7 +18,7 @@
         <phones>
             <xsl:for-each select="//div[@class='list-item']">
                 <xsl:variable name="productName" select="div//*[@class='product-name']/h4/a"/>
-                <xsl:if test="not(contains($productName, 'watch'))">
+                <xsl:if test="not(contains($productName, 'Watch'))">
                     <phone>
                         <name>
                             <xsl:value-of select="div//*[@class='product-name']/h4/a"></xsl:value-of>
