@@ -3,25 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.user;
 
-import crawler.Crawler;
-import dao.PhoneDAO;
-import dto.Phone;
+import dao.BrandDAO;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import listener.DeployListener;
-import util.StringUtil;
 
 /**
  *
  * @author thien
  */
-public class CrawlController extends HttpServlet {
+public class SearchBrandController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +31,21 @@ public class CrawlController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PhoneDAO dao = new PhoneDAO();
-        String url = "error.jsp";
+        PrintWriter pw = response.getWriter();
+        BrandDAO dao = new BrandDAO();
+        String listBrand;
+        
         try {
-            String website = request.getParameter("website");
-            String subpage = request.getParameter("subpage");
-            System.out.println("Page:  " + website + subpage);
-            String fullURL = website + subpage;
-            String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) +".xsl";
-            List<Phone> list = Crawler.crawlPage(fullURL, xslPath);
-            int numberOfItemSaved = dao.insertPhoneList(list, website, subpage);
-            int numberOfInvalid = list.size() - numberOfItemSaved;
-            String info = "Crawl from " + fullURL + list.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s)"
-                    + numberOfInvalid + " invalid item(s)";
-            request.setAttribute("INFO", info);
+            listBrand = dao.getListBrand();
+            pw.print(listBrand);
             
-            url = "admin.jsp";
+            
         } catch (Exception e) {
-            request.setAttribute("ERROR", e.toString());
-            e.printStackTrace();
+            pw.print(e.getMessage());
         }
         finally{
-            request.getRequestDispatcher(url).forward(request, response);
+           pw.flush();
+           pw.close();
         }
     }
 

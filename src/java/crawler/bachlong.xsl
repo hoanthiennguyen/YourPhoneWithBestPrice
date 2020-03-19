@@ -17,21 +17,21 @@
     <xsl:template match="/">
         <phones>
             <xsl:for-each select="//li[contains(@class, 'item sk')]">
-                <phone>
-                    <name>
+                    <phone>
+                        <name>
                         <xsl:value-of select="a/h3"></xsl:value-of>
-                    </name>
-                    <price>
-                        <xsl:variable name="textPrice" select="a//*[@class='price']"></xsl:variable>
-                        <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
-                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
-                        <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
-                        <xsl:value-of select="$trimPrice"></xsl:value-of>
-                    </price>
-                    <link>
-                        <xsl:value-of select="a/@href"></xsl:value-of>
-                    </link>
-                </phone>
+                        </name>
+                        <price>
+                            <xsl:variable name="textPrice" select="a//*[@class='price']"></xsl:variable>
+                            <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
+                            <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
+                            <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
+                            <xsl:value-of select="$trimPrice"></xsl:value-of>
+                        </price>
+                        <link>
+                            <xsl:value-of select="a/@href"></xsl:value-of>
+                        </link>
+                    </phone>
             </xsl:for-each>
         </phones>
     </xsl:template>

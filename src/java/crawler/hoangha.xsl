@@ -17,22 +17,25 @@
     <xsl:template match="/">
         <phones>
             <xsl:for-each select="//div[@class='list-item']">
-                <phone>
-                    <name>
-                        <xsl:value-of select="div//*[@class='product-name']/h4/a"></xsl:value-of>
-                    </name>
-                    <price>
-                        <xsl:variable name="textPrice" select="div[@class='product-price']"></xsl:variable>
-                        <xsl:variable name="trimPrice" select="normalize-space($textPrice)"></xsl:variable>
-                        <xsl:variable name="removedDotPrice" select="translate($trimPrice, '.', '')"></xsl:variable>
-                        <xsl:variable name="removeUnit" select="translate($removedDotPrice, '₫', '')"></xsl:variable>
-                        <xsl:value-of select="substring-before($removeUnit, ' ')"></xsl:value-of>
-                    </price>
-                    <link>
-                        <xsl:variable name="relativeLink" select="div//a/@href"></xsl:variable>
-                        <xsl:value-of select="concat('https://hoanghamobile.com', $relativeLink)"></xsl:value-of>
-                    </link>
-                </phone>
+                <xsl:variable name="productName" select="div//*[@class='product-name']/h4/a"/>
+                <xsl:if test="not(contains($productName, 'watch'))">
+                    <phone>
+                        <name>
+                            <xsl:value-of select="div//*[@class='product-name']/h4/a"></xsl:value-of>
+                        </name>
+                        <price>
+                            <xsl:variable name="textPrice" select="div[@class='product-price']"></xsl:variable>
+                            <xsl:variable name="trimPrice" select="normalize-space($textPrice)"></xsl:variable>
+                            <xsl:variable name="removedDotPrice" select="translate($trimPrice, '.', '')"></xsl:variable>
+                            <xsl:variable name="removeUnit" select="translate($removedDotPrice, '₫', '')"></xsl:variable>
+                            <xsl:value-of select="substring-before($removeUnit, ' ')"></xsl:value-of>
+                        </price>
+                        <link>
+                            <xsl:variable name="relativeLink" select="div//a/@href"></xsl:variable>
+                            <xsl:value-of select="concat('https://hoanghamobile.com', $relativeLink)"></xsl:value-of>
+                        </link>
+                    </phone>
+                </xsl:if>
             </xsl:for-each>
         </phones>
     </xsl:template>

@@ -12,6 +12,10 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.admin.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchBrandController</servlet-name>
+        <servlet-class>controller.user.SearchBrandController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlController</servlet-name>
         <url-pattern>/CrawlController</url-pattern>
@@ -19,6 +23,10 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBrandController</servlet-name>
+        <url-pattern>/SearchBrandController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
