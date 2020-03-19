@@ -20,7 +20,7 @@ public class DeployListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        REAL_PATH = sce.getServletContext().getRealPath("/") + "WEB-INF/";
+        REAL_PATH = sce.getServletContext().getRealPath("/") + "assets/xsl/";
         
     }
 

@@ -46,7 +46,7 @@ public class CrawlController extends HttpServlet {
             List<Phone> list = Crawler.crawlPage(fullURL, xslPath);
             int numberOfItemSaved = dao.insertPhoneList(list, website, subpage);
             int numberOfInvalid = list.size() - numberOfItemSaved;
-            String info = "Crawl from " + fullURL + list.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s)"
+            String info = "From " + fullURL  + "<br/> Crawl " + list.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
                     + numberOfInvalid + " invalid item(s)";
             request.setAttribute("INFO", info);
             
