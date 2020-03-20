@@ -12,6 +12,17 @@ and open the template in the editor.
 body {
     font: 16px Arial;
 }
+form {
+    position: relative;
+    margin-top: 7%;
+    margin-left: 35%;
+    width: 30%;
+}
+form h2 {
+    width: 300px;
+    font-style: italic;
+    text-align: center;
+}
 .autocomplete {
     /*the container must be positioned relative:*/
     position: relative;

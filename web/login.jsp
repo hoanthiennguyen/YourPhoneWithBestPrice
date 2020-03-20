@@ -9,13 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Best price</title>
+        <link href="./assets/css/login.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
     </head>
     <body>
         <h1>Login Page</h1>
         <form action="LoginController" method="POST">
-            Username <input name="username" type="text"><br>
-            Password <input name="password" type="text"><br>
+            <label>Username</label> <input name="username" type="text"><br>
+            <label>Password</label> <input name="password" type="text"><br>
             <input type="submit" value="Login">
         </form>
     </body>

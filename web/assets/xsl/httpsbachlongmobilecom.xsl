@@ -16,7 +16,7 @@
     -->
     <xsl:template match="/">
         <phones>
-            <xsl:for-each select="//li[contains(@class, 'item sk')]">
+            <xsl:for-each select="//li[contains(@class, 'item')]">
                 <phone>
                     <name>
                         <xsl:value-of select="a/h3"></xsl:value-of>

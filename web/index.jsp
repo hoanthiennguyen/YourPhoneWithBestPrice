@@ -9,8 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Best price</title>
         <link href="./assets/css/index.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
         <script src="./assets/js/index.js"></script>
         <script>
             function createXmlHttpObj() {
@@ -45,7 +46,9 @@
         </script>
     </head>
     <body>
+        
         <form autocomplete="off" action="SearchController">
+            <h2>Best price</h2>
             <div class="autocomplete" style="width:300px;">
                 <input name="search" id="search" style="width:300px;">
             </div>

@@ -10,7 +10,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Best price</title>
+        <link href="./assets/css/admin.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
         <script>
             
             function displayOnlySubpageFromWebsite(website){
@@ -36,13 +38,13 @@
         <h1>Admin Page</h1>
         <p>${requestScope.INFO}</p>
         <form action="CrawlController" method="POST">
-            Website <select name="website" onchange="onChangeWebsite(this);">
+            <label>Website</label> <select name="website" onchange="onChangeWebsite(this);">
                 <c:forEach items="${sessionScope.WEBSITE}" var="dto" varStatus="counter">
                     <option id="website${counter.count}" value="${dto.website}">${dto.website}</option>
                 </c:forEach>
 
             </select><br/>
-            Subpage <select name="subpage">
+            <label>Subpage</label> <select name="subpage">
                 <option>--Select--</option>
                 <c:forEach items="${sessionScope.SUBPAGE}" var="dto">
                     <option class="subpage" value="${dto.subpage}" website="${dto.website}">${dto.subpage}</option>
