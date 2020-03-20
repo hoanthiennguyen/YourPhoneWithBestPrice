@@ -55,7 +55,7 @@ public class PhoneDAO {
                 preStm.setDate(2, new Date(System.currentTimeMillis()));
                 preStm.setString(3, phone.getName());
                 preStm.setInt(4, subpageid);
-                if (!preStm.execute()) {
+                if (preStm.executeUpdate() == 0) {
                     //phone does not exist
                     sql = "INSERT into phone(name, price, subpageid, link, updatedDate) values(?,?,?,?,?)";
                     preStm = cnn.prepareStatement(sql);
