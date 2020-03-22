@@ -12,12 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import textprocessor.MyTree;
 
 /**
  *
  * @author thien
  */
-public class SearchBrandController extends HttpServlet {
+public class SearchAJAXController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,16 +33,18 @@ public class SearchBrandController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
-        BrandDAO dao = new BrandDAO();
-        String listBrand;
         
         try {
-            listBrand = dao.getListBrand();
-            pw.print(listBrand);
+            MyTree myTree = (MyTree) request.getServletContext().getAttribute("SEARCH_TREE");
+            String search = request.getParameter("search");
+            System.out.println("Search: " +  search);
+            String result = myTree.findString(search).toString();
+            pw.print(result);
             
             
         } catch (Exception e) {
             pw.print(e.getMessage());
+            e.printStackTrace();
         }
         finally{
            pw.flush();

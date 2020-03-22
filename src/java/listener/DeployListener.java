@@ -7,6 +7,8 @@ package listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import textprocessor.MyTree;
+import textprocessor.NameProcesser;
 
 /**
  * Web application lifecycle listener.
@@ -21,6 +23,11 @@ public class DeployListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         REAL_PATH = sce.getServletContext().getRealPath("/") + "assets/xsl/";
+        try {
+            MyTree myTree = NameProcesser.createSearchTree();
+            sce.getServletContext().setAttribute("SEARCH_TREE", myTree);
+        } catch (Exception e) {
+        }
         
     }
 

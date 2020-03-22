@@ -40,9 +40,11 @@
             }
             window.onload = e => {
 
-                loadListBrand("SearchBrandController");
+                loadListBrand("SearchAJAXController?search=");
             };
-
+            function onGetSuggestion(e){
+                
+            }
         </script>
     </head>
     <body>
@@ -50,9 +52,10 @@
         <form autocomplete="off" action="SearchController">
             <h2>Best price</h2>
             <div class="autocomplete" style="width:300px;">
-                <input name="search" id="search" style="width:300px;">
+                <input name="search" id="search" oninput="onGetSuggestion(this)" style="width:300px;">
             </div>
             <input type="submit" value="Search">
         </form>
+        <div>${requestScope.NAMES}</div>
     </body>
 </html>
