@@ -23,28 +23,41 @@
                 }
                 return result;
             }
-            function loadListBrand(subpage) {
+            function loadListBrand(search) {
                 let result = "";
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         // Typical action to be performed when the document is ready:
                         console.log(xhttp.responseText);
-                        let brandList = xhttp.responseText.split(",");
-                        autocomplete(document.getElementById("search"), brandList);
+                        let suggestions = xhttp.responseText.split(",")
+                                .filter(str => str !== "")
+                                .map(str => search ? search + " " + str : str);
+                        console.log(suggestions);
+                        autocomplete(document.getElementById("search"), suggestions);
                     }
                 };
-                xhttp.open("GET", subpage, true);
+                let controller = "SearchAJAXController?search=";
+                if(search !== null)
+                    controller += search;
+                xhttp.open("GET", controller, true);
                 xhttp.send();
                 return result;
             }
             window.onload = e => {
 
-                loadListBrand("SearchAJAXController?search=");
+                loadListBrand("");
+                document.getElementById("search").onkeydown = onGetSuggestion;
             };
             function onGetSuggestion(e){
-                
+                console.log(e.keyCode);
+                //ENTER is pressed
+                if(e.keyCode === 32){
+                    let search = e.target.value;
+                    loadListBrand(search);
+                }
             }
+            
         </script>
     </head>
     <body>
@@ -52,7 +65,7 @@
         <form autocomplete="off" action="SearchController">
             <h2>Best price</h2>
             <div class="autocomplete" style="width:300px;">
-                <input name="search" id="search" oninput="onGetSuggestion(this)" style="width:300px;">
+                <input name="search" id="search" style="width:300px;">
             </div>
             <input type="submit" value="Search">
         </form>
