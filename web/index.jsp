@@ -47,7 +47,7 @@
                         callback(document.getElementById("search"), suggestions);
                     }
                 };
-                let controller = "SearchAJAXController?search=";
+                let controller = "SearchSuggestionController?search=";
                 if (search !== null)
                     controller += search;
                 xhttp.open("GET", controller, true);

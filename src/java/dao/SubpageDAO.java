@@ -21,14 +21,15 @@ import java.util.List;
 public class SubpageDAO {
     public List<Subpage> getListSubpage() throws SQLException, ClassNotFoundException{
         Connection cnn = DBConnection.getConnection();
-        String sql = "SELECT website,subpage FROM subpage";
+        String sql = "SELECT website,subpage,id FROM subpage";
         PreparedStatement preStm = cnn.prepareStatement(sql);
         ResultSet rs = preStm.executeQuery();
         List<Subpage> result = new ArrayList<>();
         while(rs.next()){
             String website = rs.getString("website");
             String subpage = rs.getString("subpage");
-            result.add(new Subpage(website, subpage));
+            int id = rs.getInt("id");
+            result.add(new Subpage(website, subpage, id));
         }
         if(rs != null) rs.close();
         if(preStm != null) preStm.close();

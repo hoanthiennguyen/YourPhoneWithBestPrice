@@ -12,10 +12,17 @@ package dto;
 public class Subpage {
     String website;
     String subpage;
+    int id;
 
     public Subpage(String website, String subpage) {
         this.website = website;
         this.subpage = subpage;
+    }
+
+    public Subpage(String website, String subpage, int id) {
+        this.website = website;
+        this.subpage = subpage;
+        this.id = id;
     }
     
     public Subpage() {
@@ -36,6 +43,14 @@ public class Subpage {
 
     public void setSubpage(String subpage) {
         this.subpage = subpage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

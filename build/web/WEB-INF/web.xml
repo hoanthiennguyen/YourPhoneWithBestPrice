@@ -13,8 +13,8 @@
         <servlet-class>controller.admin.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchAJAXController</servlet-name>
-        <servlet-class>controller.user.SearchAJAXController</servlet-class>
+        <servlet-name>SearchSuggestionController</servlet-name>
+        <servlet-class>controller.user.SearchSuggestionController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchController</servlet-name>
@@ -29,8 +29,8 @@
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchAJAXController</servlet-name>
-        <url-pattern>/SearchAJAXController</url-pattern>
+        <servlet-name>SearchSuggestionController</servlet-name>
+        <url-pattern>/SearchSuggestionController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchController</servlet-name>
