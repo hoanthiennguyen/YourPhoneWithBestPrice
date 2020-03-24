@@ -14,7 +14,7 @@ public class StringUtil {
         return website.replaceAll("\\W", "");
     }
     public static void main(String[] args){
-        System.out.println(getDomainFromFullWebsite("https://bachlongmobile.com/"));
+        System.out.println(capitalize("i am Thien"));
     }
     public static String convertToXML(String names){
         String result = null;
@@ -27,5 +27,23 @@ public class StringUtil {
             result += "</names>";
         } 
         return result;
+    }
+    public static String capitalize(String src){
+        StringBuilder buffer = new StringBuilder();
+        boolean isAfterSpace = true;
+        for(int i = 0;  i < src.length(); i++){
+            String c = src.substring(i, i+1);
+            if(isAfterSpace) 
+                c = c.toUpperCase();
+            buffer.append(c);
+            isAfterSpace = c.equals(" ");
+            
+        }
+        return buffer.toString();
+    }
+    public static String getCategoryFromRawName(String rawName) {
+        String regex = "[^\\w /]";
+        String[] arr = rawName.split(regex);
+        return capitalize(arr[0].toLowerCase());
     }
 }

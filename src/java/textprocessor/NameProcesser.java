@@ -19,16 +19,15 @@ import java.util.List;
  */
 public class NameProcesser {
 
-    private static List<String> getAllPhoneName() throws ClassNotFoundException, SQLException {
+    private static List<String> getAllPhoneCategory() throws ClassNotFoundException, SQLException {
         List<String> result = new ArrayList<>();
         Connection connection = DBConnection.getConnection();
-        String sql = "SELECT name from phone";
+        String sql = "SELECT category from category";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         while (rs.next()) {
-            String rawName = rs.getString("name");
-            String name = getNameFromRawName(rawName);
-            result.add(name);
+            String category = rs.getString("category");
+            result.add(category);
         }
         return result;
     }
@@ -40,24 +39,17 @@ public class NameProcesser {
         }
     }
 
-    private static String getNameFromRawName(String rawName) {
-        String regex = "[^\\w /]";
-        String[] arr = rawName.split(regex);
-        return arr[0];
-    }
-
     public static MyTree createSearchTree() throws ClassNotFoundException, SQLException {
-        List<String> names = getAllPhoneName();
+        List<String> names = getAllPhoneCategory();
         MyTree myTree = new MyTree();
         myTree.addNames(names);
         return myTree;
     }
-   
 
     public static void main(String[] args) {
         try {
             MyTree myTree = createSearchTree();
-            System.out.println(myTree.findString("iPhone"));
+            System.out.println(myTree.findString("Vsmart"));
         } catch (Exception e) {
             e.printStackTrace();
         }
