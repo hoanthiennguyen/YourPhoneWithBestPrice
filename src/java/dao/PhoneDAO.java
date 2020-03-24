@@ -103,13 +103,30 @@ public class PhoneDAO {
         }
     }
 
+    public String searchAllPhoneWithPhoneName(String search) throws ClassNotFoundException, SQLException {
+        String result = null;
+        cnn = DBConnection.getConnection();
+        String sql = "SELECT CONCAT('<phones>',\n"
+                + "	GROUP_CONCAT('<phone><name>', name, '</name>',\n"
+                + "				'<price>', price,'</price>',\n"
+                + "                '<link>', link, '</link></phone>' SEPARATOR ''), \n"
+                + "	'</phones>') AS xmldoc\n"
+                + "FROM yourphone.phone WHERE name LIKE ?";
+        preStm = cnn.prepareStatement(sql);
+        preStm.setString(1, search + "%");
+        rs = preStm.executeQuery();
+        if (rs.next()) {
+            result = rs.getString(1);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         PhoneDAO dao = new PhoneDAO();
 
         try {
-            List<Phone> list = Crawler.crawlPage(Hoangha.WEBSITE + Hoangha.SUBPAGE1, Hoangha.XSL1);
-            dao.insertPhoneList(list, Hoangha.WEBSITE, Hoangha.SUBPAGE1);
-            System.out.println("Success");
+
+            System.out.println(dao.searchAllPhoneWithPhoneName("Honor 8A"));
         } catch (Exception e) {
             e.printStackTrace();
         }

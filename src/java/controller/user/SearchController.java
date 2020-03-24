@@ -5,6 +5,7 @@
  */
 package controller.user;
 
+import dao.PhoneDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import textprocessor.MyTree;
+import util.StringUtil;
 
 /**
  *
@@ -30,20 +32,18 @@ public class SearchController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String url = "error.jsp";
+        response.setContentType("text/xml;charset=UTF-8");
+        PrintWriter pw = response.getWriter();
         try {
-            MyTree myTree = (MyTree) request.getServletContext().getAttribute("SEARCH_TREE");
             String search = request.getParameter("search");
-            String result = myTree.findString(search).toString();
-            request.setAttribute("NAMES", result);
-            url = "index.jsp";
+            //ready to display top 3 with best price
+            PhoneDAO dao = new PhoneDAO();
+            String names = dao.searchAllPhoneWithPhoneName(search);
+            pw.print(names);
         } catch (Exception e) {
-            request.setAttribute("ERROR", e.toString());
             e.printStackTrace();
-        }
-        finally{
-            request.getRequestDispatcher(url).forward(request, response);
+        } finally {
+            pw.flush();
         }
     }
 

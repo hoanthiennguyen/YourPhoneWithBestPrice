@@ -24,7 +24,8 @@
                     <price>
                         <xsl:variable name="textPrice" select="div//*[contains(@class, 'prod_item_price')]"></xsl:variable>
                         <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
-                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
+                        <xsl:variable name="addUnit" select="concat($removedDotPrice, 'đ')"></xsl:variable>
+                        <xsl:variable name="removeUnit" select="substring-before($addUnit, 'đ')"></xsl:variable>
                         <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
                         <xsl:value-of select="$trimPrice"></xsl:value-of>
                     </price>

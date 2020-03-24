@@ -15,60 +15,90 @@
         <script src="./assets/js/index.js"></script>
         <script>
             function createXmlHttpObj() {
-                let result = null;
-                try {
-                    result = new XmlHttpRequest();
-                } catch (e) {
-                    result = new ActiveXObject("Microsoft.XMLHTTP");
+                let xhttp;
+                if (window.ActiveXObject) {
+                    xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                } else {
+                    xhttp = new XMLHttpRequest();
                 }
-                return result;
+                return xhttp;
             }
-            function loadListBrand(search) {
-                let result = "";
-                var xhttp = new XMLHttpRequest();
+            function loadXMLDoc(filename, callback)
+            {
+                var xhttp = createXmlHttpObj();
+                xhttp.open("GET", filename, true);
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        callback(xhttp.responseXML);
+                    }
+                };
+                xhttp.send();
+                return xhttp;
+            }
+
+            function loadSuggestions(search, callback) {
+                var xhttp = createXmlHttpObj();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         // Typical action to be performed when the document is ready:
                         console.log(xhttp.responseText);
                         let suggestions = xhttp.responseText.split(",")
-                                .filter(str => str !== "")
                                 .map(str => search ? search + " " + str : str);
-                        console.log(suggestions);
-                        autocomplete(document.getElementById("search"), suggestions);
+                        callback(document.getElementById("search"), suggestions);
                     }
                 };
                 let controller = "SearchAJAXController?search=";
-                if(search !== null)
+                if (search !== null)
                     controller += search;
                 xhttp.open("GET", controller, true);
                 xhttp.send();
-                return result;
+            }
+            function onGetSuggestion(e) {
+                let search = e.target.value;
+                //space is pressed
+                if (e.keyCode === 32) {
+                    
+                    loadSuggestions(search.trim(), autocomplete);
+                }
+                else if(e.keyCode === 8 && (search.endsWith(" ") || search === "")){
+                    loadSuggestions(search.trim(), autocomplete);
+                }
+            }
+            function onSearch() {
+                let input = document.getElementById("search").value;
+                loadXMLDoc("SearchController?search=" + input, xml => {
+                    loadXMLDoc("./assets/xsl/clientPhones.xsl", xsl => {
+                        if (document.implementation && document.implementation.createDocument) {
+                            let xsltProcessor = new XSLTProcessor();
+                            xsltProcessor.importStylesheet(xsl);
+                            let resultDocument = xsltProcessor.transformToFragment(xml, document);
+                            document.getElementById("maincontent").appendChild(resultDocument);
+                        }
+                    });
+                });
+                return false;
             }
             window.onload = e => {
 
-                loadListBrand("");
-                document.getElementById("search").onkeydown = onGetSuggestion;
+                loadSuggestions("", autocomplete);
+                let inputSearch = document.getElementById("search");
+                inputSearch.onkeyup = onGetSuggestion;
+
             };
-            function onGetSuggestion(e){
-                console.log(e.keyCode);
-                //ENTER is pressed
-                if(e.keyCode === 32){
-                    let search = e.target.value;
-                    loadListBrand(search);
-                }
-            }
             
+            
+
         </script>
     </head>
     <body>
-        
-        <form autocomplete="off" action="SearchController">
+
+        <form autocomplete="off" onsubmit="return onSearch();">
             <h2>Best price</h2>
             <div class="autocomplete" style="width:300px;">
                 <input name="search" id="search" style="width:300px;">
             </div>
             <input type="submit" value="Search">
         </form>
-        <div>${requestScope.NAMES}</div>
+        <div id="maincontent">${requestScope.NAMES}</div>
     </body>
 </html>
