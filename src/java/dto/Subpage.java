@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author thien
  */
-public class Subpage {
+public class Subpage implements Serializable{
     String website;
     String subpage;
     int id;

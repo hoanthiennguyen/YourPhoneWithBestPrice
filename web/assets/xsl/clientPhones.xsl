@@ -21,6 +21,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Link</th>
+                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,13 @@
                                 </xsl:attribute>
                                 Link
                             </a>
+                        </td>
+                        <td>
+                            <img>
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="img"/>
+                                </xsl:attribute>
+                            </img>
                         </td>
                     </tr>
                 </xsl:for-each>

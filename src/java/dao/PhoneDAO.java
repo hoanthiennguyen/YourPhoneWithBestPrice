@@ -27,22 +27,22 @@ public class PhoneDAO {
 
     
 
-    public int insertPhoneList(List<Phone> list, String website, String subpage) throws Exception {
+    public int savePhoneList(List<Phone> list, String website) throws Exception {
         int result = 0;
         String sql;
         cnn = DBConnection.getConnection();
 
-        int subpageid = getSubpageId(website, subpage);
         for (Phone phone : list) {
             if (phone.getPrice() > 0 && !phone.getName().isEmpty()) {
-                sql = "UPDATE phone SET price = ?, updatedDate = ? WHERE name = ? AND subpageid = ?";
+                sql = "UPDATE phone SET price = ?, updatedDate = ?, img = ? WHERE name = ? AND website = ?";
                 preStm = cnn.prepareStatement(sql);
                 preStm.setInt(1, phone.getPrice());
                 preStm.setDate(2, new Date(System.currentTimeMillis()));
-                preStm.setString(3, phone.getName());
-                preStm.setInt(4, subpageid);
+                preStm.setString(3, phone.getImg());
+                preStm.setString(4, phone.getName());
+                preStm.setString(5, website);
                 if (preStm.executeUpdate() == 0) {
-                    insertNewPhone(phone, subpageid);
+                    insertNewPhone(phone,website);
                 }
                 preStm.close();
                 result++;
@@ -53,19 +53,20 @@ public class PhoneDAO {
         return result;
     }
 
-    private void insertNewPhone(Phone phone, int subpageid) throws SQLException {
+    private void insertNewPhone(Phone phone,String website) throws SQLException {
         String category = StringUtil.getCategoryFromRawName(phone.getName());
         if(!checkCategory(category)){
             insertNewCategory(category);
         }
-        String sql = "INSERT INTO phone(name, price, subpageid, link, updatedDate, category) values(?,?,?,?,?,?)";
+        String sql = "INSERT INTO phone(name, price, link, updatedDate, category, img, website) values(?,?,?,?,?,?,?)";
         preStm = cnn.prepareStatement(sql);
         preStm.setString(1, phone.getName());
         preStm.setInt(2, phone.getPrice());
-        preStm.setInt(3, subpageid);
-        preStm.setString(4, phone.getLink());
-        preStm.setDate(5, new Date(System.currentTimeMillis()));
-        preStm.setString(6, category);
+        preStm.setString(3, phone.getLink());
+        preStm.setDate(4, new Date(System.currentTimeMillis()));
+        preStm.setString(5, category);
+        preStm.setString(6, phone.getImg());
+        preStm.setString(7, website);
         preStm.execute();
     }
     private void insertNewCategory(String category) throws SQLException{
@@ -83,24 +84,7 @@ public class PhoneDAO {
         return resultSet.next();
             
     }
-    private int getSubpageId(String website, String subpage) throws SQLException {
-        int result = 0;
-        String sql = "SELECT id FROM subpage WHERE website = ? AND subpage = ?";
-        PreparedStatement localPreStm = cnn.prepareStatement(sql);
-        localPreStm.setString(1, website);
-        localPreStm.setString(2, subpage);
-        ResultSet localRs = localPreStm.executeQuery();
-        if (localRs.first()) {
-            result = localRs.getInt("id");
-        }
-        if (localRs != null) {
-            localRs.close();
-        }
-        if (localPreStm != null) {
-            localPreStm.close();
-        }
-        return result;
-    }
+    
 
     
     public String searchAllPhoneWithPhoneName(String search) throws ClassNotFoundException, SQLException {
@@ -109,7 +93,8 @@ public class PhoneDAO {
         String sql = "SELECT CONCAT('<phones>',\n"
                 + "	GROUP_CONCAT('<phone><name>', name, '</name>',\n"
                 + "				'<price>', price,'</price>',\n"
-                + "                '<link>', link, '</link></phone>' SEPARATOR ''), \n"
+                + "                '<link>', link, '</link>',"
+                + "'<img>',img,'</img></phone>' SEPARATOR ''), \n"
                 + "	'</phones>') AS xmldoc\n"
                 + "FROM yourphone.phone WHERE name LIKE ?";
         preStm = cnn.prepareStatement(sql);

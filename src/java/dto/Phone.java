@@ -18,7 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "phone" ,propOrder = {
     "name",
     "price",
-    "link"
+    "link",
+    "img"
 })
 public class Phone {
     @XmlElement(required = true)
@@ -27,6 +28,8 @@ public class Phone {
     protected int price;
     @XmlElement (required = true)
     protected String link;
+    @XmlElement (required = true)
+    protected String img;
     public Phone() {
     }
     
@@ -50,6 +53,14 @@ public class Phone {
         return link;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
     public void setLink(String link) {
         this.link = link;
     }

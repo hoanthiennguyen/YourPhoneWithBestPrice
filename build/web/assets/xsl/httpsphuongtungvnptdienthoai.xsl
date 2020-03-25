@@ -32,6 +32,9 @@
                     <link>
                         <xsl:value-of select="a/@href"></xsl:value-of>
                     </link>
+                    <img>
+                        <xsl:value-of select="a//div[@class='images2o']/img/@src"/>
+                    </img>
                 </phone>
             </xsl:for-each>
         </phones>

@@ -132,8 +132,8 @@ public class HTMLRefiner {
 
     public static void main(String[] args) {
         try {
-            String src = getXMLString("https://hoanghamobile.com/dien-thoai-di-dong-c14.html/?sort=0&p=2");
-            writeToFile(src, "hoangha2.xml");
+            String src = getXMLString("https://bachlongmobile.com/dien-thoai.html");
+            writeToFile(src, "bachlong.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

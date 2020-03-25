@@ -15,7 +15,7 @@
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
     <xsl:template match="/">
-       <phones>
+        <phones>
             <xsl:for-each select="//div[contains(@class, 'col-md-3 col-sm-3 col-xs-3 item-prod')]">
                 <phone>
                     <name>
@@ -32,6 +32,9 @@
                     <link>
                         <xsl:value-of select="concat('https://www.mainguyen.vn',div/a/@href)"></xsl:value-of>
                     </link>
+                    <img>
+                        <xsl:value-of select="concat('https://www.mainguyen.vn',div//img/@data-original)"/>
+                    </img>
                 </phone>
             </xsl:for-each>
         </phones>

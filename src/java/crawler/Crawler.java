@@ -10,6 +10,7 @@ import dto.Phones;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,13 @@ import javax.xml.transform.stream.StreamSource;
  * @author thien
  */
 public class Crawler {
+    public static List<Phone> crawlPageWithSubpages(String website, List<String> subpages, String xslFilePath) throws TransformerException, TransformerConfigurationException, JAXBException, IOException{
+        List<Phone> result = new ArrayList<>();
+        for(String subpage: subpages){
+            result.addAll(crawlPage(website + subpage, xslFilePath));
+        }
+        return result;
+    }
     public static List<Phone> crawlPage(String urlString, String xslFilePath) throws TransformerException, TransformerConfigurationException, JAXBException, IOException{
         Phones phones = (Phones) applyXSLAndUnmarshall(urlString, xslFilePath, Phones.class);
         return phones.getList();

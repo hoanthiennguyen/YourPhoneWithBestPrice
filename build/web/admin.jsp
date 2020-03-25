@@ -46,6 +46,7 @@
             </select><br/>
             <label>Subpage</label> <select name="subpage">
                 <option value="">--Select--</option>
+                <option value="*all*">All</option>
                 <c:forEach items="${sessionScope.SUBPAGE}" var="dto">
                     <option class="subpage" value="${dto.subpage}" website="${dto.website}">${dto.subpage}</option>
                 </c:forEach>

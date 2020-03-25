@@ -34,6 +34,9 @@
                             <xsl:variable name="relativeLink" select="div//a/@href"></xsl:variable>
                             <xsl:value-of select="concat('https://hoanghamobile.com', $relativeLink)"></xsl:value-of>
                         </link>
+                        <img>
+                            <xsl:value-of select="div//img/@src"/>
+                        </img>
                     </phone>
                 </xsl:if>
             </xsl:for-each>

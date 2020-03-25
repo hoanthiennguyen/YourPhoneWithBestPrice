@@ -16,21 +16,24 @@
     -->
     <xsl:template match="/">
        <phones>
-            <xsl:for-each select="//div[contains(@class, 'product-item-left')]">
+            <xsl:for-each select="//div[contains(@class, 'product-list-item')]">
                 <phone>
                     <name>
-                        <xsl:value-of select="p[contains(@class,'name')]/a"></xsl:value-of>
+                        <xsl:value-of select="div[@class='product-item-info']//p[contains(@class,'name')]/a"></xsl:value-of>
                     </name>
                     <price>
-                        <xsl:variable name="textPrice" select="p[contains(@class, 'price')]"></xsl:variable>
+                        <xsl:variable name="textPrice" select="div[@class='product-item-info']//p[contains(@class, 'price')]"></xsl:variable>
                         <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
                         <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
                         <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
                         <xsl:value-of select="number($trimPrice)"></xsl:value-of>
                     </price>
                     <link>
-                        <xsl:value-of select="p[contains(@class,'name')]/a/@href"></xsl:value-of>
+                        <xsl:value-of select="div[@class='product-item-info']//p[contains(@class,'name')]/a/@href"></xsl:value-of>
                     </link>
+                    <img>
+                        <xsl:value-of select="div[@class='product-item-image']//img/@data-original"/>
+                    </img>
                 </phone>
             </xsl:for-each>
         </phones>

@@ -8,8 +8,10 @@ package controller.admin;
 import crawler.Crawler;
 import dao.PhoneDAO;
 import dto.Phone;
+import dto.Subpage;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,22 +42,32 @@ public class CrawlController extends HttpServlet {
         try {
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
-            System.out.println("Page:  " + website + subpage);
-            String fullURL = website + subpage;
-            String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) +".xsl";
-            List<Phone> list = Crawler.crawlPage(fullURL, xslPath);
-            int numberOfItemSaved = dao.insertPhoneList(list, website, subpage);
-            int numberOfInvalid = list.size() - numberOfItemSaved;
-            String info = "From " + fullURL  + "<br/> Crawl " + list.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
+            String websiteCrawled = website;
+            String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) + ".xsl";
+            List<Phone> phones;
+            if (subpage.equals("*all*")) {
+                List<Subpage> subpageDTOs = (List<Subpage>) request.getSession().getAttribute("SUBPAGE");
+                List<String> subpageStrs = subpageDTOs.stream()
+                        .filter(dto -> dto.getWebsite().equals(website))
+                        .map(dto -> dto.getSubpage())
+                        .collect(Collectors.toList());
+                phones = Crawler.crawlPageWithSubpages(website, subpageStrs, xslPath);
+            } else {
+                websiteCrawled += subpage;
+                phones = Crawler.crawlPage(websiteCrawled, xslPath);
+            }
+
+            int numberOfItemSaved = dao.savePhoneList(phones, website);
+            int numberOfInvalid = phones.size() - numberOfItemSaved;
+            String info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
                     + numberOfInvalid + " invalid item(s)";
             request.setAttribute("INFO", info);
-            
+
             url = "admin.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

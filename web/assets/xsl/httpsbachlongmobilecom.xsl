@@ -19,7 +19,7 @@
             <xsl:for-each select="//li[contains(@class, 'item')]">
                 <phone>
                     <name>
-                        <xsl:value-of select="a/h3"></xsl:value-of>
+                        <xsl:value-of select="a/*[@class='product-name']"></xsl:value-of>
                     </name>
                     <price>
                         <xsl:variable name="textPrice" select="a//*[@class='price']"></xsl:variable>
@@ -31,6 +31,16 @@
                     <link>
                         <xsl:value-of select="a/@href"></xsl:value-of>
                     </link>
+                    <img>
+                        <xsl:choose>
+                            <xsl:when test="a/img/@src">
+                                <xsl:value-of select="a/img/@src"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="a/img/@data-original"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </img>
                 </phone>
             </xsl:for-each>
         </phones>

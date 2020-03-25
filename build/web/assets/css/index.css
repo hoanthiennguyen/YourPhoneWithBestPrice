@@ -68,3 +68,27 @@ input[type=submit] {
     background-color: DodgerBlue !important;
     color: #ffffff;
 }
+#maincontent{
+    position: relative;
+    margin-top: 7%;
+    margin-left: 10%;
+    width: 80%;
+}
+#maincontent table{
+    width: 80%;
+    margin-left: 10%;
+    border: 2px background solid;
+    border-collapse: collapse;
+}
+#maincontent img{
+    max-width: 100px;
+    max-height: 200px;
+    
+}
+#maincontent table th{
+    text-align: left;
+}
+#maincontent td,th{
+    border: 1px #d4d4d4 solid;
+    
+}
