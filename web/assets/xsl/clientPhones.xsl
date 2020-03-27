@@ -22,7 +22,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Website</th>
-                    <th>Link</th>
+                    <th>Link to details</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@
                         <td><xsl:value-of select="price"></xsl:value-of></td>
                         <td><xsl:value-of select="website"></xsl:value-of></td>
                         <td>
-                            <a>
+                            <a target="_blank">
                                 <xsl:attribute name="href">
                                     <xsl:value-of select="link"/>
                                 </xsl:attribute>
