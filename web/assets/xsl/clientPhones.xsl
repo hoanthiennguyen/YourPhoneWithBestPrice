@@ -18,17 +18,26 @@
         <table>
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Website</th>
                     <th>Link</th>
-                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
                 <xsl:for-each select="//phone">
                     <tr>
+                        <td>
+                            <img>
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="img"/>
+                                </xsl:attribute>
+                            </img>
+                        </td>
                         <td><xsl:value-of select="name"></xsl:value-of></td>
                         <td><xsl:value-of select="price"></xsl:value-of></td>
+                        <td><xsl:value-of select="website"></xsl:value-of></td>
                         <td>
                             <a>
                                 <xsl:attribute name="href">
@@ -37,13 +46,7 @@
                                 Link
                             </a>
                         </td>
-                        <td>
-                            <img>
-                                <xsl:attribute name="src">
-                                    <xsl:value-of select="img"/>
-                                </xsl:attribute>
-                            </img>
-                        </td>
+                        
                     </tr>
                 </xsl:for-each>
             </tbody>

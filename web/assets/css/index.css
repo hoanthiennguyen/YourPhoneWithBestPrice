@@ -77,12 +77,12 @@ input[type=submit] {
 #maincontent table{
     width: 80%;
     margin-left: 10%;
-    border: 2px background solid;
+    border: 1px #d4d4d4 solid;
     border-collapse: collapse;
 }
 #maincontent img{
-    max-width: 100px;
-    max-height: 200px;
+    width: 100px;
+    height: 100px;
     
 }
 #maincontent table th{
@@ -91,4 +91,8 @@ input[type=submit] {
 #maincontent td,th{
     border: 1px #d4d4d4 solid;
     
+}
+#website, #phoneName{
+    width: 250px;
+    color: dodgerblue;
 }

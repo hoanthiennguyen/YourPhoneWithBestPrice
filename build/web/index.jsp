@@ -67,6 +67,7 @@
             function onSearch() {
                 let input = document.getElementById("search").value;
                 loadXMLDoc("SearchController?search=" + input, xml => {
+                    console.log(xml);
                     loadXMLDoc("./assets/xsl/clientPhones.xsl", xsl => {
                         if (document.implementation && document.implementation.createDocument) {
                             let xsltProcessor = new XSLTProcessor();
@@ -99,6 +100,6 @@
             </div>
             <input type="submit" value="Search">
         </form>
-        <div id="maincontent">${requestScope.NAMES}</div>
+        <div id="maincontent"></div>
     </body>
 </html>

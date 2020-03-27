@@ -25,8 +25,6 @@ public class PhoneDAO {
     private PreparedStatement preStm = null;
     private ResultSet rs = null;
 
-    
-
     public int savePhoneList(List<Phone> list, String website) throws Exception {
         int result = 0;
         String sql;
@@ -42,7 +40,7 @@ public class PhoneDAO {
                 preStm.setString(4, phone.getName());
                 preStm.setString(5, website);
                 if (preStm.executeUpdate() == 0) {
-                    insertNewPhone(phone,website);
+                    insertNewPhone(phone, website);
                 }
                 preStm.close();
                 result++;
@@ -53,9 +51,9 @@ public class PhoneDAO {
         return result;
     }
 
-    private void insertNewPhone(Phone phone,String website) throws SQLException {
+    private void insertNewPhone(Phone phone, String website) throws SQLException {
         String category = StringUtil.getCategoryFromRawName(phone.getName());
-        if(!checkCategory(category)){
+        if (!checkCategory(category)) {
             insertNewCategory(category);
         }
         String sql = "INSERT INTO phone(name, price, link, updatedDate, category, img, website) values(?,?,?,?,?,?,?)";
@@ -69,34 +67,31 @@ public class PhoneDAO {
         preStm.setString(7, website);
         preStm.execute();
     }
-    private void insertNewCategory(String category) throws SQLException{
+
+    private void insertNewCategory(String category) throws SQLException {
         String sql = "INSERT INTO category(category) values(?)";
         PreparedStatement preparedStatement = cnn.prepareStatement(sql);
         preparedStatement.setString(1, category);
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
-    private boolean checkCategory(String category) throws SQLException{
+
+    private boolean checkCategory(String category) throws SQLException {
         String sql = "SELECT category FROM category WHERE category = ?";
         PreparedStatement preparedStatement = cnn.prepareStatement(sql);
         preparedStatement.setString(1, category);
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.next();
-            
-    }
-    
 
-    
+    }
+
     public String searchAllPhoneWithPhoneName(String search) throws ClassNotFoundException, SQLException {
         String result = null;
         cnn = DBConnection.getConnection();
-        String sql = "SELECT CONCAT('<phones>',\n"
-                + "	GROUP_CONCAT('<phone><name>', name, '</name>',\n"
-                + "				'<price>', price,'</price>',\n"
-                + "                '<link>', link, '</link>',"
-                + "'<img>',img,'</img></phone>' SEPARATOR ''), \n"
-                + "	'</phones>') AS xmldoc\n"
-                + "FROM yourphone.phone WHERE name LIKE ?";
+        String sql = "select cast ((SELECT img,name,price,website,link FROM phone"
+                + " WHERE name like ? "
+                + " order by price FOR XML PATH('phone'), ROOT('phones'))"
+                + " as nvarchar(Max))";
         preStm = cnn.prepareStatement(sql);
         preStm.setString(1, search + "%");
         rs = preStm.executeQuery();
@@ -114,7 +109,7 @@ public class PhoneDAO {
 
         try {
 
-            System.out.println(dao.searchAllPhoneWithPhoneName("Honor 8A"));
+            System.out.println(dao.searchAllPhoneWithPhoneName("Nokia 106"));
         } catch (Exception e) {
             e.printStackTrace();
         }

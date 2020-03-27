@@ -17,9 +17,9 @@ public class DBConnection {
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         Connection cnn;
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/yourphone";
-        cnn = DriverManager.getConnection(url, "root", "123456");
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String url = "jdbc:sqlserver://localhost:1433;database=yourphone";
+        cnn = DriverManager.getConnection(url, "sa", "thien");
         
 
         return cnn;
