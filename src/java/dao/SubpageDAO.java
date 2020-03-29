@@ -36,4 +36,20 @@ public class SubpageDAO {
         if(cnn != null) cnn.close();
         return result;
     }
+    public List<String> getListSubpageFrom(String website) throws SQLException, ClassNotFoundException{
+        Connection cnn = DBConnection.getConnection();
+        String sql = "SELECT subpage FROM subpage WHERE website = ?";
+        PreparedStatement preStm = cnn.prepareStatement(sql);
+        preStm.setString(1, website);
+        ResultSet rs = preStm.executeQuery();
+        List<String> result = new ArrayList<>();
+        while(rs.next()){
+            String subpage = rs.getString("subpage");
+            result.add(subpage);
+        }
+        rs.close();
+        preStm.close();
+        cnn.close();
+        return result;
+    }
 }

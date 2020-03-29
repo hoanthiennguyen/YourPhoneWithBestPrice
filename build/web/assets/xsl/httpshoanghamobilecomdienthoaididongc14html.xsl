@@ -25,10 +25,18 @@
                         </name>
                         <price>
                             <xsl:variable name="textPrice" select="div[@class='product-price']"></xsl:variable>
-                            <xsl:variable name="trimPrice" select="normalize-space($textPrice)"></xsl:variable>
-                            <xsl:variable name="removedDotPrice" select="translate($trimPrice, '.', '')"></xsl:variable>
+                            <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
                             <xsl:variable name="removeUnit" select="translate($removedDotPrice, '₫', '')"></xsl:variable>
-                            <xsl:value-of select="substring-before($removeUnit, ' ')"></xsl:value-of>
+                            <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"/>
+                            <xsl:choose>
+                                <xsl:when test="contains($trimPrice,' ')">
+                                    <xsl:value-of select="substring-after($trimPrice, ' ')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$trimPrice"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            
                         </price>
                         <link>
                             <xsl:variable name="relativeLink" select="div//a/@href"></xsl:variable>

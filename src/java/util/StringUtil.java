@@ -10,8 +10,8 @@ package util;
  * @author thien
  */
 public class StringUtil {
-    public static String getDomainFromFullWebsite(String website){
-        return website.replaceAll("\\W", "");
+    public static String getXslFileNameFromWebsite(String website){
+        return website.replaceAll("\\W", "") + ".xsl";
     }
     public static void main(String[] args){
         System.out.println(capitalize("i am Thien"));

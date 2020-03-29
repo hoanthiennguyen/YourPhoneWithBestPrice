@@ -32,8 +32,11 @@ import javax.xml.transform.stream.StreamSource;
 public class Crawler {
     public static List<Phone> crawlPageWithSubpages(String website, List<String> subpages, String xslFilePath) throws TransformerException, TransformerConfigurationException, JAXBException, IOException{
         List<Phone> result = new ArrayList<>();
+        List<Phone> eachSubpagePhones;
         for(String subpage: subpages){
-            result.addAll(crawlPage(website + subpage, xslFilePath));
+            eachSubpagePhones = crawlPage(website + subpage, xslFilePath);
+            if(eachSubpagePhones != null)
+                result.addAll(eachSubpagePhones);
         }
         return result;
     }

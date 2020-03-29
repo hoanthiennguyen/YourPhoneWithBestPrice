@@ -43,7 +43,8 @@ public class CrawlController extends HttpServlet {
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
             String websiteCrawled = website;
-            String xslPath = DeployListener.REAL_PATH + StringUtil.getDomainFromFullWebsite(website) + ".xsl";
+            String xslPath = DeployListener.REAL_PATH + "assets/xsl/" 
+                    + StringUtil.getXslFileNameFromWebsite(website);
             List<Phone> phones;
             if (subpage.equals("*all*")) {
                 List<Subpage> subpageDTOs = (List<Subpage>) request.getSession().getAttribute("SUBPAGE");

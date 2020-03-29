@@ -34,4 +34,19 @@ public class WebsiteDAO {
         if(cnn != null) cnn.close();
         return result;
     }
+    public List<String> getListWebsiteString() throws ClassNotFoundException, SQLException{
+        Connection cnn = DBConnection.getConnection();
+        String sql = "SELECT website FROM website";
+        PreparedStatement preStm = cnn.prepareStatement(sql);
+        ResultSet rs = preStm.executeQuery();
+        List<String> result = new ArrayList<>();
+        while(rs.next()){
+            String website = rs.getString("website");
+            result.add(website);
+        }
+        rs.close();
+        preStm.close();
+        cnn.close();
+        return result;
+    }
 }
