@@ -29,9 +29,9 @@ public class WebsiteDAO {
             String website = rs.getString("website");
             result.add(new Website(website));
         }
-        if(rs != null) rs.close();
-        if(preStm != null) preStm.close();
-        if(cnn != null) cnn.close();
+        rs.close();
+        preStm.close();
+        cnn.close();
         return result;
     }
     public List<String> getListWebsiteString() throws ClassNotFoundException, SQLException{

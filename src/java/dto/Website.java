@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author thien
  */
-public class Website {
+public class Website implements Serializable{
     String website;
 
     public Website() {

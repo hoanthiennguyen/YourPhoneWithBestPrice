@@ -42,7 +42,7 @@ public class LoginController extends HttpServlet {
         try {
             if (userDAO.login(username, password)) {
                 HttpSession session = request.getSession();
-                session.setAttribute("WEBSITE", websiteDAO.getListWebsite());
+                session.setAttribute("WEBSITE", websiteDAO.getListWebsiteString());
                 session.setAttribute("SUBPAGE", subpageDAO.getListSubpage());
                 session.setAttribute("USERNAME", username);
                 url = "admin.jsp";

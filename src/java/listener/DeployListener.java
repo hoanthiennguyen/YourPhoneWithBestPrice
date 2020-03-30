@@ -30,8 +30,8 @@ public class DeployListener implements ServletContextListener {
         try {
             MyTree myTree = NameProcesser.createSearchTree();
             sce.getServletContext().setAttribute("SEARCH_TREE", myTree);
-            createLogger(REAL_PATH + "assets/log/crawl.log");
-            DailyCrawler.dailyCrawl(REAL_PATH);
+//            createLogger(REAL_PATH + "assets/log/crawl.log");
+//            DailyCrawler.dailyCrawl(REAL_PATH);
         } catch (Exception e) {
             Logger.getLogger("myLog").severe(e.toString());
         }

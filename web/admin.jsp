@@ -40,7 +40,7 @@
         <form action="CrawlController" method="POST">
             <label>Website</label> <select name="website" onchange="onChangeWebsite(this);">
                 <c:forEach items="${sessionScope.WEBSITE}" var="dto" varStatus="counter">
-                    <option id="website${counter.count}" value="${dto.website}">${dto.website}</option>
+                    <option id="website${counter.count}" value="${dto}">${dto}</option>
                 </c:forEach>
 
             </select><br/>
@@ -53,5 +53,6 @@
             </select><br/>
             <input type="submit" value="Crawl">
         </form>
+        <a href="editXSL.jsp">Edit xsl</a>
     </body>
 </html>

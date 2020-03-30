@@ -20,6 +20,10 @@
         <servlet-name>SearchController</servlet-name>
         <servlet-class>controller.user.SearchController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditXSLController</servlet-name>
+        <servlet-class>controller.admin.EditXSLController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlController</servlet-name>
         <url-pattern>/CrawlController</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>SearchController</servlet-name>
         <url-pattern>/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditXSLController</servlet-name>
+        <url-pattern>/EditXSLController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

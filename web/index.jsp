@@ -73,7 +73,10 @@
                             let xsltProcessor = new XSLTProcessor();
                             xsltProcessor.importStylesheet(xsl);
                             let resultDocument = xsltProcessor.transformToFragment(xml, document);
-                            document.getElementById("maincontent").appendChild(resultDocument);
+                            let maincontent = document.getElementById("maincontent");
+                            if(maincontent.firstChild)
+                                maincontent.removeChild(maincontent.firstChild);
+                            maincontent.appendChild(resultDocument);
                         }
                     });
                 });
