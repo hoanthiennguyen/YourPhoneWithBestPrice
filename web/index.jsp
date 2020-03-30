@@ -75,7 +75,7 @@
                             let resultDocument = xsltProcessor.transformToFragment(xml, document);
                             let maincontent = document.getElementById("maincontent");
                             if(maincontent.firstChild)
-                                maincontent.removeChild(maincontent.firstChild);
+                                maincontent.removeChild(maincontent.firstElementChild);
                             maincontent.appendChild(resultDocument);
                         }
                     });
