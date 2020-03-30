@@ -77,3 +77,18 @@ function onTestTransform(){
     });
     
 }
+function onSave(){
+    let xsl = document.getElementById("xsl").value;
+    let website = document.getElementById("website").value;
+    let params = `xsl=${xsl}&website=${website}`;
+    postAJAX("SaveXSLController", params , xhttp =>{
+        if(xhttp.responseText === "Success"){
+            alert("Success");
+        }  
+        else
+            alert(xhttp.responseText);
+    });
+}
+function onReset(){
+    location.reload();
+}

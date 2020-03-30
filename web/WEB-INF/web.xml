@@ -28,6 +28,10 @@
         <servlet-name>TestTransformController</servlet-name>
         <servlet-class>controller.admin.TestTransformController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveXSLController</servlet-name>
+        <servlet-class>controller.admin.SaveXSLController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlController</servlet-name>
         <url-pattern>/CrawlController</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>TestTransformController</servlet-name>
         <url-pattern>/TestTransformController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveXSLController</servlet-name>
+        <url-pattern>/SaveXSLController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

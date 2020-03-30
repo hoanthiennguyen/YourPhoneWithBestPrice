@@ -16,6 +16,8 @@
         <script type="text/javascript" src="vkbeautify.0.99.00.beta.js"></script>
     </head>
     <body>
+        <a href="admin.jsp">Back to crawl page</a>
+        <h1>Edit XSL page</h1>
         <label>Website</label> <select name="website" id="website" onchange="onChangeWebsite(this);">
             <c:forEach items="${sessionScope.WEBSITE}" var="dto" varStatus="counter">
                 <option id="website${counter.count}" value="${dto}">${dto}</option>
@@ -34,8 +36,8 @@
                 <textarea id="xsl" placeholder="Remember, be nice!" cols="120" rows="30"></textarea><br/>
                 
                 <button onclick="onTestTransform();">Test transform</button>
-                <button>Save</button>
-                <button>Discard</button>
+                <button onclick="onSave();">Save</button>
+                <button onclick="onReset();">Reset</button>
             </div>
             <div id="xmlContainer">
                 XML transform <br/>

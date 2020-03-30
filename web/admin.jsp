@@ -35,7 +35,7 @@
         </script>
     </head>
     <body>
-        <h1>Admin Page</h1>
+        <h1>Crawl page</h1>
         <p>${requestScope.INFO}</p>
         <form action="CrawlController" method="POST">
             <label>Website</label> <select name="website" onchange="onChangeWebsite(this);">
