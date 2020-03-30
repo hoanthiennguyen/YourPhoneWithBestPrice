@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import util.EscapseHTMLUtils;
+import util.FileUtil;
 
 /**
  *
@@ -98,42 +99,10 @@ public class HTMLRefiner {
         }
         return stringBuilder.toString();
     }
-
-    private static String getExpectedString(String src, String from, String to) {
-        return "";
-    }
-
-    private static String getStringFromFile(String filePath) {
-        StringBuilder builder = new StringBuilder();
-        try {
-            try (FileReader fileReader = new FileReader(filePath); BufferedReader br = new BufferedReader(fileReader)) {
-
-                String line;
-                while ((line = br.readLine()) != null) {
-                    builder.append(line);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return builder.toString();
-    }
-
-    private static void writeToFile(String src, String filePath) {
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-
-            fileWriter.write(src);
-            fileWriter.flush();
-            System.out.println("Success");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
         try {
             String src = getXMLString("https://bachlongmobile.com/dien-thoai.html");
-            writeToFile(src, "bachlong.xml");
+            FileUtil.writeToFile(src, "bachlong.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,29 +12,38 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="./assets/css/editXSL.css" rel="stylesheet" type="text/css">
+        <script src="./assets/js/editXSL.js"></script>
+        <script type="text/javascript" src="vkbeautify.0.99.00.beta.js"></script>
     </head>
     <body>
-        <label>Website</label> <select name="website" onchange="onChangeWebsite(this);">
+        <label>Website</label> <select name="website" id="website" onchange="onChangeWebsite(this);">
             <c:forEach items="${sessionScope.WEBSITE}" var="dto" varStatus="counter">
                 <option id="website${counter.count}" value="${dto}">${dto}</option>
             </c:forEach>
 
         </select><br/>
+        <label>Subpage</label> <select name="subpage" id="subpage">
+            <option value="">--Select--</option>
+            <c:forEach items="${sessionScope.SUBPAGE}" var="dto">
+                <option class="subpage" value="${dto.subpage}" website="${dto.website}">${dto.subpage}</option>
+            </c:forEach>
+        </select><br/>
         <div id="view">
-            <div id="xsl">
+            <div id="xslContainer">
                 XSL <br/>
-                <textarea placeholder="Remember, be nice!" cols="50" rows="30"></textarea><br/>
-                <button>Test transform</button>
+                <textarea id="xsl" placeholder="Remember, be nice!" cols="120" rows="30"></textarea><br/>
+                
+                <button onclick="onTestTransform();">Test transform</button>
                 <button>Save</button>
                 <button>Discard</button>
             </div>
-            <div id="xml">
+            <div id="xmlContainer">
                 XML transform <br/>
-                <textarea disabled="disabled" cols="50" rows="30"></textarea>
+                <xmp id="xml" disabled="disabled" ></xmp>
             </div>
-            
+
         </div>
-        
-        
+
+
     </body>
 </html>

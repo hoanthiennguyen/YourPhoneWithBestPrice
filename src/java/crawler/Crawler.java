@@ -9,7 +9,9 @@ import dto.Phone;
 import dto.Phones;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +25,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
@@ -67,8 +70,20 @@ public class Crawler {
         Transformer transformer = factory.newTransformer(xsl);
         return transformer;
     }
-    
-    
+    private static Transformer createTransformerFactoryWithXSLString(String xslStr) throws TransformerConfigurationException{
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Source xsl = new StreamSource(new StringReader(xslStr));
+        Transformer transformer = factory.newTransformer(xsl);
+        return transformer;
+    }
+    public static String applyXSL(String urlString, String xslStr) throws TransformerConfigurationException, IOException, TransformerException{
+        Transformer transformer = createTransformerFactoryWithXSLString(xslStr);
+        Source xmlSource = createXMLSource(urlString);
+        StringWriter sw = new StringWriter();
+        StreamResult result = new StreamResult(sw);
+        transformer.transform(xmlSource, result);
+        return sw.toString();
+    }
     public static void main(String[] args) {
         try {
             List<Phone> list =  crawlPage("https://bachlongmobile.com/dien-thoai.html", "src/java/crawler/bachlong.xsl");

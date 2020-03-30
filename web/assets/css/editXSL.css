@@ -8,14 +8,15 @@ and open the template in the editor.
     Author     : thien
 */
 
-#xsl{
+#xslContainer{
     left: 0;
     top: 0;
     position: absolute;
 }
-#xml{
-    left: 50%;
+#xmlContainer{
+    left: 65%;
     position: absolute;
+    padding-left: 20px;
 }
 #view{
     margin-top: 20px;
@@ -26,5 +27,5 @@ textarea{
     display: inline-block;
 }
 body{
-    padding-left: 20px;
+    padding-left: 10px;
 }

@@ -24,6 +24,10 @@
         <servlet-name>EditXSLController</servlet-name>
         <servlet-class>controller.admin.EditXSLController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestTransformController</servlet-name>
+        <servlet-class>controller.admin.TestTransformController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlController</servlet-name>
         <url-pattern>/CrawlController</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>EditXSLController</servlet-name>
         <url-pattern>/EditXSLController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestTransformController</servlet-name>
+        <url-pattern>/TestTransformController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

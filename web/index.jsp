@@ -23,10 +23,10 @@
                 }
                 return xhttp;
             }
-            function loadXMLDoc(filename, callback)
+            function getAJAX(url, callback)
             {
                 var xhttp = createXmlHttpObj();
-                xhttp.open("GET", filename, true);
+                xhttp.open("GET", url, true);
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         callback(xhttp.responseXML);
@@ -66,9 +66,9 @@
             }
             function onSearch() {
                 let input = document.getElementById("search").value;
-                loadXMLDoc("SearchController?search=" + input, xml => {
+                getAJAX("SearchController?search=" + input, xml => {
                     console.log(xml);
-                    loadXMLDoc("./assets/xsl/clientPhones.xsl", xsl => {
+                    getAJAX("./assets/xsl/clientPhones.xsl", xsl => {
                         if (document.implementation && document.implementation.createDocument) {
                             let xsltProcessor = new XSLTProcessor();
                             xsltProcessor.importStylesheet(xsl);
