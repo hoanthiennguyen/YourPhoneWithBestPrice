@@ -5,6 +5,7 @@
  */
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,6 +27,8 @@ public class Phones{
     List<Phone> phone;
     
     public List<Phone> getList() {
+        if(phone == null)
+            phone = new ArrayList<>();
         return phone;
     }
 

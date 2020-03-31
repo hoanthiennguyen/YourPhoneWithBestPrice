@@ -58,15 +58,10 @@ public class CrawlController extends HttpServlet {
                 phones = Crawler.crawlPage(websiteCrawled, xslPath);
             }
             String info;
-            if (phones == null) {
-                info = "Cannot crawl any phone from this website, possible reasons may be: layout changes or "
-                        + " subpage changes";
-            } else {
-                int numberOfItemSaved = dao.savePhoneList(phones, website);
-                int numberOfInvalid = phones.size() - numberOfItemSaved;
-                info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
-                        + numberOfInvalid + " invalid item(s)";
-            }
+            int numberOfItemSaved = dao.savePhoneList(phones, website);
+            int numberOfInvalid = phones.size() - numberOfItemSaved;
+            info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
+                    + numberOfInvalid + " invalid item(s)";
 
             request.setAttribute("INFO", info);
             url = "admin.jsp";
