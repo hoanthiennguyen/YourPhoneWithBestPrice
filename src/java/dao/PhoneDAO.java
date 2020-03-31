@@ -93,7 +93,7 @@ public class PhoneDAO {
                 + " order by price FOR XML PATH('phone'), ROOT('phones'))"
                 + " as nvarchar(Max))";
         preStm = cnn.prepareStatement(sql);
-        preStm.setString(1, search + "%");
+        preStm.setString(1, "%" + search + "%");
         rs = preStm.executeQuery();
         if (rs.next()) {
             result = rs.getString(1);
