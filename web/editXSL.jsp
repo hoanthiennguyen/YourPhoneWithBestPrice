@@ -10,10 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Best price</title>
         <link href="./assets/css/editXSL.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
         <script src="./assets/js/editXSL.js"></script>
-        <script type="text/javascript" src="vkbeautify.0.99.00.beta.js"></script>
     </head>
     <body>
         <a href="admin.jsp">Back to crawl page</a>
@@ -34,7 +34,7 @@
             <div id="xslContainer">
                 XSL <br/>
                 <textarea id="xsl" placeholder="Remember, be nice!" cols="120" rows="30"></textarea><br/>
-                
+
                 <button onclick="onTestTransform();">Test transform</button>
                 <button onclick="onSave();">Save</button>
                 <button onclick="onReset();">Reset</button>

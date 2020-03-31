@@ -9,7 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
+        <title>Best price</title>
     </head>
     <body>
         <h1>Error page</h1>

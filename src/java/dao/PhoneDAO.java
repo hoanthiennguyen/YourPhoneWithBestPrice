@@ -6,12 +6,14 @@
 package dao;
 
 import connection.DBConnection;
+import dto.Summary;
 import dto.Phone;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import util.StringUtil;
 
@@ -111,6 +113,27 @@ public class PhoneDAO {
         preStm = cnn.prepareStatement(sql);
         preStm.setDate(1, new Date(System.currentTimeMillis()));
         return preStm.executeUpdate();
+    }
+    public List<Summary> getSummary() throws ClassNotFoundException, SQLException{
+        List<Summary> result = new ArrayList<>();
+        cnn = DBConnection.getConnection();
+        String sql = "SELECT category, AVG(price) as averagePrice,"
+                + " COUNT(distinct website) as numOfWebsites"
+                + " FROM phone GROUP BY category ORDER BY numOfWebsites DESC, averagePrice DESC";
+        preStm = cnn.prepareStatement(sql);
+        rs = preStm.executeQuery();
+        String category;
+        int averagePrice, numOfWebsites;
+        while(rs.next()){
+            category = rs.getString("category");
+            averagePrice = rs.getInt("averagePrice");
+            numOfWebsites = rs.getInt("numOfWebsites");
+            result.add(new Summary(category, averagePrice, numOfWebsites));
+        }
+        rs.close();
+        preStm.close();
+        cnn.close();
+        return result;
     }
 
     public static void main(String[] args) {

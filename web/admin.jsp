@@ -54,5 +54,6 @@
             <input type="submit" value="Crawl">
         </form>
         <a href="editXSL.jsp">Edit xsl</a>
+        <a href="SummaryController">Summary page</a>
     </body>
 </html>
