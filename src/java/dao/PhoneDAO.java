@@ -26,6 +26,8 @@ public class PhoneDAO {
     private ResultSet rs = null;
 
     public int savePhoneList(List<Phone> list, String website) throws Exception {
+        if(list == null) 
+            return 0;
         int result = 0;
         String sql;
         cnn = DBConnection.getConnection();

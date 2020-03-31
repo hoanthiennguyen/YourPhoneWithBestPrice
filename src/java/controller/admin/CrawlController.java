@@ -43,7 +43,7 @@ public class CrawlController extends HttpServlet {
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
             String websiteCrawled = website;
-            String xslPath = DeployListener.REAL_PATH + "assets/xsl/" 
+            String xslPath = DeployListener.REAL_PATH + "assets/xsl/"
                     + StringUtil.getXslFileNameFromWebsite(website);
             List<Phone> phones;
             if (subpage.equals("*all*")) {
@@ -57,13 +57,18 @@ public class CrawlController extends HttpServlet {
                 websiteCrawled += subpage;
                 phones = Crawler.crawlPage(websiteCrawled, xslPath);
             }
+            String info;
+            if (phones == null) {
+                info = "Cannot crawl any phone from this website, possible reasons may be: layout changes or "
+                        + " subpage changes";
+            } else {
+                int numberOfItemSaved = dao.savePhoneList(phones, website);
+                int numberOfInvalid = phones.size() - numberOfItemSaved;
+                info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
+                        + numberOfInvalid + " invalid item(s)";
+            }
 
-            int numberOfItemSaved = dao.savePhoneList(phones, website);
-            int numberOfInvalid = phones.size() - numberOfItemSaved;
-            String info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
-                    + numberOfInvalid + " invalid item(s)";
             request.setAttribute("INFO", info);
-
             url = "admin.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());
