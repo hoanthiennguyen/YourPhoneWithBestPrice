@@ -18,10 +18,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Website</th>
+                    <th id="imgHeader">Image</th>
+                    <th >Name</th>
+                    <th id="priceHeader">Price</th>
+                    <th >Website</th>
                     <th>Link to details</th>
                 </tr>
             </thead>
@@ -36,7 +36,23 @@
                             </img>
                         </td>
                         <td><xsl:value-of select="name"></xsl:value-of></td>
-                        <td><xsl:value-of select="price"></xsl:value-of></td>
+                        <td>
+                            <xsl:variable name="intPrice" select="price"/>
+                            <xsl:variable name="n" select="string-length($intPrice)"/>
+                            <xsl:choose>
+                                <xsl:when test="$n > 6">
+                                    <xsl:variable name="part_1" select="substring($intPrice,1,($n)-6)"/>
+                                    <xsl:variable name="part_2" select="substring($intPrice,($n)-5,3)"/>
+                                    <xsl:variable name="part_3" select="substring($intPrice,($n)-2,3)"/>
+                                    <xsl:value-of select="concat($part_1, '.', $part_2, '.', $part_3, ' ₫')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:variable name="part_1" select="substring($intPrice,1,($n)-3)"/>
+                                    <xsl:variable name="part_2" select="substring($intPrice,($n)-2,3)"/>
+                                    <xsl:value-of select="concat($part_1, '.', $part_2, ' ₫')"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </td>
                         <td><xsl:value-of select="website"></xsl:value-of></td>
                         <td>
                             <a target="_blank">

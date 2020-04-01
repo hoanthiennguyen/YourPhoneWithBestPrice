@@ -90,9 +90,12 @@ input[type=submit] {
 }
 #maincontent td,th{
     border: 1px #d4d4d4 solid;
-    
+    padding-left: 3px;
 }
-#website, #phoneName{
+#websiteHeader, #phoneNameHeader{
     width: 250px;
     color: dodgerblue;
+}
+#priceHeader, #imgHeader{
+    width: 110px;
 }

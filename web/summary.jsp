@@ -33,7 +33,7 @@
                 <tr>
                     <td>${counter.count}</td>
                     <td>${dto.category}</td>
-                    <td>${dto.averagePrice}</td>
+                    <td>${dto.displayPrice}</td>
                     <td>${dto.numOfWebsites}</td>
                 </tr>
             </c:forEach>
