@@ -49,4 +49,13 @@ public class WebsiteDAO {
         cnn.close();
         return result;
     }
+    public void insertWebsite(String website) throws ClassNotFoundException, SQLException{
+        Connection cnn = DBConnection.getConnection();
+        String sql = "INSERT INTO website(website) values(?)";
+        PreparedStatement preStm = cnn.prepareStatement(sql);
+        preStm.setString(1, website);
+        preStm.executeUpdate();
+        preStm.close();
+        cnn.close();
+    }
 }

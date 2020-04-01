@@ -31,9 +31,9 @@ public class SubpageDAO {
             int id = rs.getInt("id");
             result.add(new Subpage(website, subpage, id));
         }
-        if(rs != null) rs.close();
-        if(preStm != null) preStm.close();
-        if(cnn != null) cnn.close();
+        rs.close();
+        preStm.close();
+        cnn.close();
         return result;
     }
     public List<String> getListSubpageFrom(String website) throws SQLException, ClassNotFoundException{
@@ -51,5 +51,16 @@ public class SubpageDAO {
         preStm.close();
         cnn.close();
         return result;
+    }
+    public void insertSubpages(String website, String[] subpages) throws ClassNotFoundException, SQLException{
+        
+        Connection cnn = DBConnection.getConnection();
+        String sql = "INSERT INTO subpage(website, subpage) values(?,?)";
+        PreparedStatement preStm = cnn.prepareStatement(sql);
+        preStm.setString(1, website);
+        for(String subpage: subpages){
+            preStm.setString(2, subpage);
+            preStm.executeUpdate();
+        }
     }
 }

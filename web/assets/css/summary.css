@@ -16,5 +16,8 @@ table{
 }
 td,th{
     border: 1px #d4d4d4 solid;
-    
+    text-align: left;
+}
+h1{
+    text-align: center;
 }

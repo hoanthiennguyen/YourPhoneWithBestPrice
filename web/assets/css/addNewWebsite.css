@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Mar 29, 2020, 5:40:41 PM
+    Created on : Mar 31, 2020, 9:08:10 PM
     Author     : thien
 */
 
@@ -33,4 +33,5 @@ label{
     width: 80px;
     display: inline-block;
     margin-top: 5px;
+    vertical-align: top;
 }

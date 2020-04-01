@@ -15,14 +15,15 @@
         <title>Best price</title>
     </head>
     <body>
+        <a href="admin.jsp">Back to crawl page</a>
         <h1>Summary page</h1>
         <table>
             <thead>
                 <tr>
-                    <td>No</td>
-                    <td>Category</td>
-                    <td>Average price</td>
-                    <td>Number of websites</td>
+                    <th>No</th>
+                    <th>Category</th>
+                    <th>Average price</th>
+                    <th>Number of websites</th>
                 </tr>
             </thead>
         </tr>

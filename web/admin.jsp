@@ -53,6 +53,7 @@
             </select><br/>
             <input type="submit" value="Crawl">
         </form>
+        <a href="addNewWebsite.jsp">Add new website</a>
         <a href="editXSL.jsp">Edit xsl</a>
         <a href="SummaryController">Summary page</a>
     </body>
