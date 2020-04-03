@@ -6,15 +6,6 @@
 
 
 
-function displayOnlySubpageFromWebsite(website) {
-    let arr = Array.from(document.getElementsByClassName("subpage"))
-    arr.forEach(option => {
-        if (option.getAttribute("website") !== website)
-            option.style.display = "none";
-        else
-            option.style.display = "block";
-    });
-}
 window.onload = (e) => {
     let firstwebsite = document.getElementById("website1").value;
     displayOnlySubpageFromWebsite(firstwebsite);

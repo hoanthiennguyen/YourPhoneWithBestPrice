@@ -12,6 +12,7 @@
         <title>Best price</title>
         <link href="./assets/css/index.css" rel="stylesheet" type="text/css">
         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
+        <script src="./assets/js/common.js"></script>
         <script src="./assets/js/index.js"></script>
         <script src="./assets/js/myIndex.js"></script>
     </head>

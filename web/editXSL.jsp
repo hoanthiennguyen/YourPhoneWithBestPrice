@@ -13,6 +13,7 @@
         <title>Best price</title>
         <link href="./assets/css/editXSL.css" rel="stylesheet" type="text/css">
         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
+        <script src="./assets/js/common.js"></script>
         <script src="./assets/js/editXSL.js"></script>
     </head>
     <body>

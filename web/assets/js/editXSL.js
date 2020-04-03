@@ -6,47 +6,6 @@
 function covertWebsiteToXSLFileName(website){
     return website.replace(/\W/g, "") + ".xsl";
 }
-function createXmlHttpObj() {
-    let xhttp;
-    if (window.ActiveXObject) {
-        xhttp = new ActiveXObject("Msxml2.XMLHTTP");
-    } else {
-        xhttp = new XMLHttpRequest();
-    }
-    return xhttp;
-}
-function getAJAX(url, callback){
-    var xhttp = createXmlHttpObj();
-    xhttp.open("GET", url, true);
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            callback(xhttp);
-        }
-    };
-    xhttp.send();
-    return xhttp;
-}
-function postAJAX(url, body, callback){
-    var xhttp = createXmlHttpObj();
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            callback(xhttp);
-        }
-    };
-    xhttp.send(body);
-    return xhttp;
-}
-function displayOnlySubpageFromWebsite(website) {
-    let arr = Array.from(document.getElementsByClassName("subpage"))
-    arr.forEach(option => {
-        if (option.getAttribute("website") !== website)
-            option.style.display = "none";
-        else
-            option.style.display = "block";
-    });
-}
 function loadXSL(website){
     let xslFileName = covertWebsiteToXSLFileName(website);
     console.log(xslFileName);
@@ -70,6 +29,10 @@ function onTestTransform(){
     let xsl = document.getElementById("xsl").value;
     let website = document.getElementById("website").value;
     let subpage = document.getElementById("subpage").value;
+    if(subpage === ""){
+        alert("Please choose a subpage to test");
+        return false;
+    }
     let params = `xsl=${xsl}&url=${website+subpage}`;
     let xml = document.getElementById("xml");
     postAJAX("TestTransformController",params , xhttp =>{
