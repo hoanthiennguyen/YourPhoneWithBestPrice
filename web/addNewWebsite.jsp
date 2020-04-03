@@ -74,7 +74,7 @@
             </div>
             <div id="xmlContainer">
                 XML transform <br/>
-                <xmp id="xml" disabled="disabled" ></xmp>
+                <textarea id="xml" disabled="disabled" rows="30" cols="60"></textarea>
             </div>
 
         </div>

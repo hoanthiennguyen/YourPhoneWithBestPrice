@@ -13,31 +13,12 @@
         <title>Best price</title>
         <link href="./assets/css/admin.css" rel="stylesheet" type="text/css">
         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
-        <script>
-            
-            function displayOnlySubpageFromWebsite(website){
-                let arr = Array.from(document.getElementsByClassName("subpage"))
-                arr.forEach(option => {
-                    if (option.getAttribute("website") !== website)
-                        option.style.display = "none";
-                    else
-                        option.style.display = "block";
-                });
-            }
-            window.onload = (e) =>{
-                let firstwebsite = document.getElementById("website1").value;
-                displayOnlySubpageFromWebsite(firstwebsite);
-            };
-            function onChangeWebsite(e) {
-                let website = e.value;
-                displayOnlySubpageFromWebsite(website);
-            }
-        </script>
+        <script src="./assets/js/admin.js"></script>
     </head>
     <body>
         <h1>Crawl page</h1>
         <p>${requestScope.INFO}</p>
-        <form action="CrawlController" method="POST">
+        <form action="CrawlController" method="POST" onsubmit="return onCrawl(this);">
             <label>Website</label> <select name="website" onchange="onChangeWebsite(this);">
                 <c:forEach items="${sessionScope.WEBSITE}" var="dto" varStatus="counter">
                     <option id="website${counter.count}" value="${dto}">${dto}</option>
