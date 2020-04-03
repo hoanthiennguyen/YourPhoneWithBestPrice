@@ -12,6 +12,7 @@
         <title>Best price</title>
         <link href="./assets/css/addNewWebsite.css" rel="stylesheet" type="text/css">
         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
+        <script src="./assets/js/common.js"></script>
         <script src="./assets/js/addNewWebsite.js"></script>
     </head>
     <body>
@@ -27,6 +28,7 @@
             <div id="xslContainer">
                 XSL <br/>
                 <textarea id="xsl" placeholder="Remember, be nice!" cols="120" rows="30">
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="xml" indent="yes"/>
 
@@ -38,17 +40,17 @@
             <xsl:for-each select="//li[contains(@class, 'item')]">
                 <phone>
                     <name>
-                        <xsl:value-of select="a/*[@class='product-name']"></xsl:value-of>
+                        <xsl:value-of select="a/*[@class='product-name']"/>
                     </name>
                     <price>
-                        <xsl:variable name="textPrice" select="a//*[@class='price']"></xsl:variable>
-                        <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
-                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
-                        <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
-                        <xsl:value-of select="$trimPrice"></xsl:value-of>
+                        <xsl:variable name="textPrice" select="a//*[@class='price']"/>
+                        <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"/>
+                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 1, string-length($removedDotPrice) - 1)"/>
+                        <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"/>
+                        <xsl:value-of select="$trimPrice"/>
                     </price>
                     <link>
-                        <xsl:value-of select="a/@href"></xsl:value-of>
+                        <xsl:value-of select="a/@href"/>
                     </link>
                     <img>
                         <xsl:choose>

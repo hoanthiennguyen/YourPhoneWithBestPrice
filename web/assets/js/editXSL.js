@@ -14,11 +14,15 @@ function loadXSL(website){
         xslTextarea.innerHTML = xhttp.responseText;
     });
 }
-window.onload = (e) => {
-    let firstwebsite = document.getElementById("website1").value;
-    displayOnlySubpageFromWebsite(firstwebsite);
-    loadXSL(firstwebsite);
-};
+function displayOnlySubpageFromWebsite(website) {
+    let arr = Array.from(document.getElementsByClassName("subpage"));
+    arr.forEach(option => {
+        if (option.getAttribute("website") !== website)
+            option.style.display = "none";
+        else
+            option.style.display = "block";
+    });
+}
 
 function onChangeWebsite(e) {
     let website = e.value;
@@ -55,3 +59,8 @@ function onSave(){
 function onReset(){
     location.reload();
 }
+window.onload = (e) => {
+    let firstwebsite = document.getElementById("website1").value;
+    displayOnlySubpageFromWebsite(firstwebsite);
+    loadXSL(firstwebsite);
+};

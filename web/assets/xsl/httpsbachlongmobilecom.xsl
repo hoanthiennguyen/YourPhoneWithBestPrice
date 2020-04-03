@@ -22,14 +22,14 @@
                         <xsl:value-of select="a/*[@class='product-name']"></xsl:value-of>
                     </name>
                     <price>
-                        <xsl:variable name="textPrice" select="a//*[@class='price']"></xsl:variable>
-                        <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"></xsl:variable>
-                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 0, string-length($removedDotPrice) - 1)"></xsl:variable>
-                        <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"></xsl:variable>
-                        <xsl:value-of select="$trimPrice"></xsl:value-of>
+                        <xsl:variable name="textPrice" select="a//*[@class='price']"/>
+                        <xsl:variable name="removedDotPrice" select="translate($textPrice, '.', '')"/>
+                        <xsl:variable name="removeUnit" select="substring($removedDotPrice, 1, string-length($removedDotPrice) - 2)"/>
+                        <xsl:variable name="trimPrice" select="normalize-space($removeUnit)"/>
+                        <xsl:value-of select="$trimPrice"/>
                     </price>
                     <link>
-                        <xsl:value-of select="a/@href"></xsl:value-of>
+                        <xsl:value-of select="a/@href"/>
                     </link>
                     <img>
                         <xsl:choose>

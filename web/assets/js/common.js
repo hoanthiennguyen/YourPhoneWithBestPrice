@@ -5,15 +5,6 @@
  */
 
 
-function displayOnlySubpageFromWebsite(website) {
-    let arr = Array.from(document.getElementsByClassName("subpage"))
-    arr.forEach(option => {
-        if (option.getAttribute("website") !== website)
-            option.style.display = "none";
-        else
-            option.style.display = "block";
-    });
-}
 function createXmlHttpObj() {
     let xhttp;
     if (window.ActiveXObject) {

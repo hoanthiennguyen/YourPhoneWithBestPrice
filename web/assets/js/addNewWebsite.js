@@ -7,27 +7,6 @@ window.onload = e => {
     originalXSL = document.getElementById("xsl").value;
 };
 
-function createXmlHttpObj() {
-    let xhttp;
-    if (window.ActiveXObject) {
-        xhttp = new ActiveXObject("Msxml2.XMLHTTP");
-    } else {
-        xhttp = new XMLHttpRequest();
-    }
-    return xhttp;
-}
-function postAJAX(url, body, callback) {
-    var xhttp = createXmlHttpObj();
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            callback(xhttp);
-        }
-    };
-    xhttp.send(body);
-    return xhttp;
-}
 function onTestTransform() {
     let xsl = document.getElementById("xsl").value;
     let website = document.getElementById("website").value;

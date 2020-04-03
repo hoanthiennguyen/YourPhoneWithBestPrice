@@ -5,11 +5,15 @@
  */
 
 
-
-window.onload = (e) => {
-    let firstwebsite = document.getElementById("website1").value;
-    displayOnlySubpageFromWebsite(firstwebsite);
-};
+function displayOnlySubpageFromWebsite(website) {
+    let arr = Array.from(document.getElementsByClassName("subpage"));
+    arr.forEach(option => {
+        if (option.getAttribute("website") !== website)
+            option.style.display = "none";
+        else
+            option.style.display = "block";
+    });
+}
 function onChangeWebsite(e) {
     let website = e.value;
     displayOnlySubpageFromWebsite(website);
@@ -21,3 +25,7 @@ function onCrawl(form) {
     } else
         return true;
 }
+window.onload = (e) => {
+    let firstwebsite = document.getElementById("website1").value;
+    displayOnlySubpageFromWebsite(firstwebsite);
+};
