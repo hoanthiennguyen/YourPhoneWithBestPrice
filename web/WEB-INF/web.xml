@@ -40,6 +40,10 @@
         <servlet-name>AddNewWebsiteController</servlet-name>
         <servlet-class>controller.admin.AddNewWebsiteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadExcelController</servlet-name>
+        <servlet-class>controller.admin.DownloadExcelController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrawlController</servlet-name>
         <url-pattern>/CrawlController</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>AddNewWebsiteController</servlet-name>
         <url-pattern>/AddNewWebsiteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadExcelController</servlet-name>
+        <url-pattern>/DownloadExcelController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

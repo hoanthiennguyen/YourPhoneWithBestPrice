@@ -5,6 +5,9 @@
  */
 package util;
 
+import dto.Summary;
+import java.util.List;
+
 /**
  *
  * @author thien
@@ -45,5 +48,35 @@ public class StringUtil {
         String regex = "[^\\w /]";
         String[] arr = rawName.split(regex);
         return capitalize(arr[0].toLowerCase());
+    }
+    public static StringBuilder convertToCSV(List<Summary> list){
+        StringBuilder writer = new StringBuilder();
+        writer.append("No.");
+        writer.append(',');
+	writer.append("Category");
+	writer.append(',');
+	writer.append("Average Price");
+	writer.append(',');
+	writer.append("Number of website");
+	writer.append('\n');
+        if(list != null){
+            Summary summary;
+            for(int i = 0; i < list.size(); i++){
+                summary = list.get(i);
+                writeSummaryToCSV(writer, i, summary);
+            }
+        }
+        return writer;
+    }
+
+    private static void writeSummaryToCSV(StringBuilder writer, int i, Summary summary) {
+        writer.append(i+1);
+        writer.append(",");
+        writer.append(summary.getCategory());
+        writer.append(",");
+        writer.append(summary.getAveragePrice());
+        writer.append(",");
+        writer.append(summary.getNumOfWebsites());
+        writer.append('\n');
     }
 }

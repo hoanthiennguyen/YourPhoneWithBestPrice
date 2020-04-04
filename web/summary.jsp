@@ -10,13 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
-         <link href="./assets/css/summary.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
+        <link href="./assets/css/summary.css" rel="stylesheet" type="text/css">
         <title>Best price</title>
     </head>
     <body>
-        <a href="admin.jsp">Back to crawl page</a>
-        <h1>Summary page</h1>
+        <div class="title">
+            <a href="admin.jsp" class="navigator">Back to crawl page</a>
+            <h1>Summary page</h1>
+            <a href="DownloadExcelController" id="downloadLink">Download as excel</a>
+        </div>
         <table>
             <thead>
                 <tr>
