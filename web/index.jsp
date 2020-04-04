@@ -14,7 +14,6 @@
         <link rel="icon" href="./assets/img/icon.png" type="image/x-icon">
         <script src="./assets/js/common.js"></script>
         <script src="./assets/js/index.js"></script>
-        <script src="./assets/js/myIndex.js"></script>
     </head>
     <body>
 
