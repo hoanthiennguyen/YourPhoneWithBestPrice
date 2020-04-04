@@ -43,7 +43,7 @@ public class CrawlController extends HttpServlet {
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
             String websiteCrawled = website;
-            String xslPath = DeployListener.REAL_PATH + "assets/xsl/"
+            String xslPath = DeployListener.XSL_PATH
                     + StringUtil.getXslFileNameFromWebsite(website);
             List<Phone> phones;
             if (subpage.equals("*all*")) {

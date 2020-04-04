@@ -42,7 +42,7 @@ public class AddNewWebsiteController extends HttpServlet {
         String website = request.getParameter("website");
         String[] subpages = request.getParameter("subpages").split("\n");
         String xsl = request.getParameter("xsl");
-        String xslFilePath = DeployListener.REAL_PATH + "assets/xsl/"
+        String xslFilePath = DeployListener.XSL_PATH
                 + StringUtil.getXslFileNameFromWebsite(website);
         try {
             websiteDAO.insertWebsite(website);

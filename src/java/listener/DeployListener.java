@@ -22,16 +22,18 @@ import textprocessor.NameProcesser;
 public class DeployListener implements ServletContextListener {
 
     public static String REAL_PATH;
+    public static String XSL_PATH;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
         REAL_PATH = sce.getServletContext().getRealPath("/");
+        XSL_PATH = REAL_PATH +"assets/xsl/";
         try {
             MyTree myTree = NameProcesser.createSearchTree();
             sce.getServletContext().setAttribute("SEARCH_TREE", myTree);
 //            createLogger(REAL_PATH + "assets/log/crawl.log");
-//            DailyCrawler.dailyCrawl(REAL_PATH);
+//            DailyCrawler.dailyCrawl(XSL_PATH);
         } catch (Exception e) {
             Logger.getLogger("myLog").severe(e.toString());
         }

@@ -36,7 +36,7 @@ public class SaveXSLController extends HttpServlet {
         PrintWriter pw = response.getWriter();
         String xslValue = request.getParameter("xsl");
         String website = request.getParameter("website");
-        String xslFilePath = DeployListener.REAL_PATH + "assets/xsl/"
+        String xslFilePath = DeployListener.XSL_PATH
                 + StringUtil.getXslFileNameFromWebsite(website);
         try {
             FileUtil.writeToFile(xslValue, xslFilePath);
