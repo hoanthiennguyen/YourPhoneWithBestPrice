@@ -12,6 +12,8 @@ function onTestTransform() {
     let website = document.getElementById("website").value;
     let subpages = document.getElementById("subpages").value;
     let firstSubpage = subpages.split("\n").map(sub => sub.trim()).filter(s => s !== "")[0];
+    if(firstSubpage === undefined)
+        firstSubpage="";
     let params = `xsl=${xsl}&url=${website + firstSubpage}`;
     let xml = document.getElementById("xml");
     postAJAX("TestTransformController", params, xhttp => {

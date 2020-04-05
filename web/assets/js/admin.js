@@ -19,7 +19,7 @@ function onChangeWebsite(e) {
     displayOnlySubpageFromWebsite(website);
 }
 function onCrawl(form) {
-    if (form.subpage.value === "") {
+    if (form.subpage.value === "*undefined*") {
         alert("You must select subpage");
         return false;
     } else
