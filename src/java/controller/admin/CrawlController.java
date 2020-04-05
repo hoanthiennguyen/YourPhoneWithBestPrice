@@ -5,18 +5,19 @@
  */
 package controller.admin;
 
-import crawler.Crawler;
+import crawler.CrawlUtil;
 import dao.PhoneDAO;
 import dto.Phone;
 import dto.Subpage;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import listener.DeployListener;
+import textprocessor.MyTree;
+import textprocessor.MyTreeUtil;
 import util.StringUtil;
 
 /**
@@ -43,27 +44,22 @@ public class CrawlController extends HttpServlet {
             String website = request.getParameter("website");
             String subpage = request.getParameter("subpage");
             String websiteCrawled = website;
+            if(!subpage.equals("*all*")){
+                websiteCrawled += subpage;
+            }
+            else {
+                websiteCrawled += "*";
+            }
             String xslPath = DeployListener.XSL_PATH
                     + StringUtil.getXslFileNameFromWebsite(website);
-            List<Phone> phones;
-            if (subpage.equals("*all*")) {
-                List<Subpage> subpageDTOs = (List<Subpage>) request.getSession().getAttribute("SUBPAGE");
-                List<String> subpageStrs = subpageDTOs.stream()
-                        .filter(dto -> dto.getWebsite().equals(website))
-                        .map(dto -> dto.getSubpage())
-                        .collect(Collectors.toList());
-                phones = Crawler.crawlPageWithSubpages(website, subpageStrs, xslPath);
-            } else {
-                websiteCrawled += subpage;
-                phones = Crawler.crawlPage(websiteCrawled, xslPath);
-            }
-            String info;
-            int numberOfItemSaved = dao.savePhoneList(phones, website);
-            int numberOfInvalid = phones.size() - numberOfItemSaved;
-            info = "From " + websiteCrawled + "<br/> Crawl " + phones.size() + " item(s) " + ", save to DB: " + numberOfItemSaved + " item(s), "
-                    + numberOfInvalid + " invalid item(s)";
-
-            request.setAttribute("INFO", info);
+            List<Subpage> subpageDTOs = (List<Subpage>) request.getSession().getAttribute("SUBPAGE");
+            List<Phone> phones = CrawlUtil.crawlPhones(website, subpage, subpageDTOs, xslPath);
+            int numOfSave = dao.savePhoneList(phones, website);
+            int numOfCrawl = phones.size();
+            MyTree myTree = (MyTree) request.getServletContext().getAttribute("SEARCH_TREE");
+            MyTreeUtil.updateSearchTree(myTree);
+            request.setAttribute("INFO", StringUtil.createCrawlingInfo(websiteCrawled, 
+                    numOfCrawl, numOfSave));
             url = "admin.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());

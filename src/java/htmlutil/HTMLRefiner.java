@@ -6,8 +6,6 @@
 package htmlutil;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -101,8 +99,8 @@ public class HTMLRefiner {
     }
     public static void main(String[] args) {
         try {
-            String src = getXMLString("https://bachlongmobile.com/dien-thoai.html");
-            FileUtil.writeToFile(src, "bachlong.xml");
+            String src = getXMLString("https://mrbachkhoa.com/collections/dien-thoai-apple-new");
+            FileUtil.writeToFile(src, "mrbachkhoa.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

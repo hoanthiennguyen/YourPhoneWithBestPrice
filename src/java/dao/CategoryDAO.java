@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package textprocessor;
+package dao;
 
 import connection.DBConnection;
 import java.sql.Connection;
@@ -17,9 +17,8 @@ import java.util.List;
  *
  * @author thien
  */
-public class NameProcesser {
-
-    private static List<String> getAllPhoneCategory() throws ClassNotFoundException, SQLException {
+public class CategoryDAO {
+    public List<String> getAllPhoneCategory() throws ClassNotFoundException, SQLException {
         List<String> result = new ArrayList<>();
         Connection connection = DBConnection.getConnection();
         String sql = "SELECT category from category";
@@ -30,28 +29,5 @@ public class NameProcesser {
             result.add(category);
         }
         return result;
-    }
-
-    private static void print(List<String> names, int begin, int end) {
-
-        for (int i = begin; i < end && i < names.size(); i++) {
-            System.out.println(i + ": " + names.get(i));
-        }
-    }
-
-    public static MyTree createSearchTree() throws ClassNotFoundException, SQLException {
-        List<String> names = getAllPhoneCategory();
-        MyTree myTree = new MyTree();
-        myTree.addNames(names);
-        return myTree;
-    }
-
-    public static void main(String[] args) {
-        try {
-            MyTree myTree = createSearchTree();
-            System.out.println(myTree.findString("Vsmart"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

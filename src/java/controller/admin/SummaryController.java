@@ -7,7 +7,7 @@ package controller.admin;
 
 import dao.PhoneDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +35,8 @@ public class SummaryController extends HttpServlet {
         PhoneDAO phoneDAO = new PhoneDAO();
         try {
             request.setAttribute("CATEGORIES", phoneDAO.getSummary());
+            List<String> websites = (List<String>) request.getSession().getAttribute("WEBSITE");
+            request.setAttribute("TOTAL_WEBSITE", websites.size());
             url = "summary.jsp";
         } catch (Exception e) {
             request.setAttribute("ERROR", e.toString());

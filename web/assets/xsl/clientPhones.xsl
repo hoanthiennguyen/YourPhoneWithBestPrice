@@ -14,7 +14,7 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
-    <xsl:template match="/phones">
+    <xsl:template match="/">
         <table>
             <thead>
                 <tr>
@@ -68,10 +68,4 @@
             </tbody>
         </table>
     </xsl:template>
-    <xsl:template match="/names">
-        <xsl:for-each select="//name">
-            <h3><xsl:value-of select="."></xsl:value-of></h3>
-        </xsl:for-each>
-    </xsl:template>
-
 </xsl:stylesheet>

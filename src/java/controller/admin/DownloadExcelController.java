@@ -44,7 +44,8 @@ public class DownloadExcelController extends HttpServlet {
         PhoneDAO phoneDAO = new PhoneDAO();
         try {
             List<Summary> summaries = phoneDAO.getSummary();
-            StringBuilder sb = StringUtil.convertToCSV(summaries);
+            List<String> websites = (List<String>) request.getSession().getAttribute("WEBSITE");
+            StringBuilder sb = StringUtil.convertToCSV(summaries, websites.size());
             in = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
             out = response.getOutputStream();
             byte[] outputByte = new byte[4096];

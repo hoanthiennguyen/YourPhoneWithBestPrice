@@ -12,7 +12,7 @@ import java.util.logging.SimpleFormatter;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import textprocessor.MyTree;
-import textprocessor.NameProcesser;
+import textprocessor.MyTreeUtil;
 
 /**
  * Web application lifecycle listener.
@@ -30,7 +30,7 @@ public class DeployListener implements ServletContextListener {
         REAL_PATH = sce.getServletContext().getRealPath("/");
         XSL_PATH = REAL_PATH +"assets/xsl/";
         try {
-            MyTree myTree = NameProcesser.createSearchTree();
+            MyTree myTree = MyTreeUtil.createSearchTree();
             sce.getServletContext().setAttribute("SEARCH_TREE", myTree);
 //            createLogger(REAL_PATH + "assets/log/crawl.log");
 //            DailyCrawler.dailyCrawl(XSL_PATH);

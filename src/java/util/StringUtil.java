@@ -6,6 +6,7 @@
 package util;
 
 import dto.Summary;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,20 +18,9 @@ public class StringUtil {
         return website.replaceAll("\\W", "") + ".xsl";
     }
     public static void main(String[] args){
-        System.out.println(capitalize("i am Thien"));
+        System.out.println(getCategoryFromRawName("Vivo Y15 - 99%"));
     }
-    public static String convertToXML(String names){
-        String result = null;
-        String[] arr = names.split(",");
-        if(arr.length > 0){
-            result = "<names>";
-            for(String name: arr){
-                result += "<name>" + name +"</name>";
-            }
-            result += "</names>";
-        } 
-        return result;
-    }
+    
     public static String capitalize(String src){
         StringBuilder buffer = new StringBuilder();
         boolean isAfterSpace = true;
@@ -45,19 +35,21 @@ public class StringUtil {
         return buffer.toString();
     }
     public static String getCategoryFromRawName(String rawName) {
-        String regex = "[^\\w /]";
+        String regex = "[\\[\\(-]";
         String[] arr = rawName.split(regex);
         return capitalize(arr[0].toLowerCase());
     }
-    public static StringBuilder convertToCSV(List<Summary> list){
+    public static StringBuilder convertToCSV(List<Summary> list, int numOfWebsite){
         StringBuilder writer = new StringBuilder();
         writer.append("No.");
         writer.append(',');
 	writer.append("Category");
 	writer.append(',');
-	writer.append("Average Price");
+	writer.append("Average Price (VND)");
 	writer.append(',');
-	writer.append("Number of website");
+	writer.append("Number of websites selling (Total: ").append(numOfWebsite).append(")");
+        writer.append(',');
+        writer.append("Last updated: ").append(new Date(System.currentTimeMillis()));
 	writer.append('\n');
         if(list != null){
             Summary summary;
@@ -78,5 +70,10 @@ public class StringUtil {
         writer.append(",");
         writer.append(summary.getNumOfWebsites());
         writer.append('\n');
+    }
+    public static String createCrawlingInfo(String websiteCrawled, int numOfCrawl, int numOfSave){
+        int numOfInvalid = numOfCrawl - numOfSave;
+        return "From " + websiteCrawled + "<br/> Crawl " + numOfCrawl + " item(s) " + ", save to DB: " + numOfSave + " item(s), "
+                    + numOfInvalid + " invalid item(s)";
     }
 }

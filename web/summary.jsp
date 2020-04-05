@@ -26,7 +26,7 @@
                     <th>No</th>
                     <th>Category</th>
                     <th>Average price</th>
-                    <th>Number of websites</th>
+                    <th>Number of websites selling (Total: ${requestScope.TOTAL_WEBSITE})</th>
                 </tr>
             </thead>
         </tr>
