@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
+/* global fasle */
 
+let valid = false;
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
      the text field element and an array of possible autocompleted values:*/
@@ -14,6 +16,7 @@ function autocomplete(inp, arr) {
         var a, b, i, val = inp.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
+        valid = false;
         if (!val) {
             return false;
         }
@@ -27,6 +30,8 @@ function autocomplete(inp, arr) {
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
+            if(arr[i].toUpperCase()=== val.toUpperCase())
+                valid = true;
             if (arr[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
@@ -38,6 +43,7 @@ function autocomplete(inp, arr) {
                 /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
+                    valid = true;
                     inp.value = this.getElementsByTagName("input")[0].value;
                     /*close the list of autocompleted values,
                      (or any other open lists of autocompleted values:*/
@@ -82,11 +88,14 @@ function autocomplete(inp, arr) {
                 appendSuggestions(null, arr);
             });
             //backspace is press
-        } else if (e.keyCode === 8 && (search.endsWith(" ") || search === "")) {
-            loadSuggestions(search.trim(), suggestions => {
-                arr = suggestions;
-                appendSuggestions(null, arr);
-            });
+        } else if (e.keyCode === 8) {
+            valid = false;
+            if (search.endsWith(" ") || search === "") {
+                loadSuggestions(search.trim(), suggestions => {
+                    arr = suggestions;
+                    appendSuggestions(null, arr);
+                });
+            }
         }
     }
     inp.addEventListener("input", e => appendSuggestions(e, arr));
@@ -137,13 +146,17 @@ function loadSuggestions(search, callback) {
 }
 function onSearch() {
     let input = document.getElementById("search").value;
+    if (valid === false) {
+        alert("You should type something valid");
+        return false;
+    }
     getAJAX("SearchController?search=" + input, xhttp => {
         let xml = xhttp.responseXML;
         let maincontent = document.getElementById("maincontent");
         if (maincontent.firstChild)
             maincontent.removeChild(maincontent.firstElementChild);
         if (xml === null) {
-            maincontent.innerHTML ="<h3>No result found</h3>";
+            maincontent.innerHTML = "<h3>No result found</h3>";
             return false;
         }
         getAJAX("./assets/xsl/clientPhones.xsl", xhttpXSL => {
