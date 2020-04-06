@@ -15,6 +15,7 @@
     </head>
     <body>
         <h1>Login Page</h1>
+        <p style="color: red">${requestScope.ERROR}</p>
         <form action="LoginController" method="POST">
             <label>Username</label> <input name="username" type="text"><br>
             <label>Password</label> <input name="password" type="password"><br>

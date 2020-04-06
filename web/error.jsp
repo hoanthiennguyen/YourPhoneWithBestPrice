@@ -14,6 +14,6 @@
     </head>
     <body>
         <h1>Error page</h1>
-        <p>${requestScope.ERROR}</p>
+        <p style="color: red">${requestScope.ERROR}</p>
     </body>
 </html>

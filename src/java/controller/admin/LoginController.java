@@ -48,7 +48,8 @@ public class LoginController extends HttpServlet {
                 url = "admin.jsp";
             }
             else{
-                request.setAttribute("ERROR", "incorrect username or password");
+                url = "login.jsp";
+                request.setAttribute("ERROR", "Incorrect username or password");
             }
                 
         } catch (Exception e) {
